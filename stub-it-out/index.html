@@ -28,106 +28,113 @@
   body {
     font-family: Fredoka, system-ui, -apple-system, "Segoe UI", sans-serif;
     min-height: 100vh;
-    padding: 16px 16px 48px;
+    padding: 14px 16px 40px;
     background:
-      radial-gradient(600px 300px at 50% -80px, rgba(255,122,47,.18), transparent 70%),
+      radial-gradient(600px 300px at 50% -80px, rgba(255,122,47,.16), transparent 70%),
       var(--bg);
   }
   .wrap { max-width: 520px; margin: 0 auto; }
-  button { font-family: inherit; cursor: pointer; border: 0; color: inherit; }
-  h1 { font-size: 28px; margin: 0; letter-spacing: .5px; }
-  h2 { font-size: 17px; margin: 0 0 12px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
-  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
-  .icon-btn { background: var(--card); width: 44px; height: 44px; border-radius: 14px; font-size: 20px; flex: none; }
+  button { font-family: inherit; cursor: pointer; border: 0; color: inherit; background: none; }
+  h1 { font-size: 22px; margin: 0; line-height: 1.1; }
+  h2 { font-size: 14px; margin: 0 0 12px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+  b { font-weight: 600; }
+
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .logo { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-size: 24px;
+    background: linear-gradient(135deg, var(--ember), var(--gold)); }
+  .tagline { font-size: 13px; color: var(--muted); }
+  .icon-btn { background: var(--card); border: 1px solid var(--line); width: 44px; height: 44px; border-radius: 14px; font-size: 20px; flex: none; }
+  .tabs { display: flex; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 4px; gap: 4px; margin-bottom: 14px; }
+  .tabs button { flex: 1; padding: 10px; border-radius: 10px; color: var(--muted); font-weight: 600; font-size: 15px; }
+  .tabs button.on { background: var(--card2); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,.3); }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
 
-  /* Level */
-  .level { display: flex; align-items: center; gap: 12px; }
-  .lvl-badge { width: 54px; height: 54px; border-radius: 16px; flex: none; display: grid; place-items: center;
-    background: linear-gradient(135deg, var(--ember), var(--gold)); color: #2a1606; font-weight: 700; font-size: 22px; }
-  .lvl-info { flex: 1; min-width: 0; }
-  .lvl-title { font-weight: 600; font-size: 18px; }
-  .lvl-sub { color: var(--muted); font-size: 13px; }
-  .bar { height: 10px; background: var(--card2); border-radius: 99px; overflow: hidden; margin-top: 6px; }
-  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--ember), var(--gold)); border-radius: 99px; transition: width .6s; }
-
-  /* Pack */
-  .today-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-  .count { font-size: 46px; font-weight: 700; line-height: 1; }
-  .count small { font-size: 20px; color: var(--muted); font-weight: 500; }
-  .left-msg { font-size: 15px; color: var(--muted); }
-  .pack { margin: 14px 0 6px; padding: 14px 10px 10px; border-radius: 14px;
-    background: linear-gradient(180deg, #3b2a1b, #2a1e14); border: 2px solid #4d3826;
-    display: grid; justify-items: center; row-gap: 10px; column-gap: 4px; }
-  .cig { width: 100%; max-width: 22px; height: 92px; position: relative; display: flex; flex-direction: column; transition: transform .3s; }
-  .cig .tip { height: 6px; border-radius: 3px 3px 0 0; background: #e9e1d6; }
-  .cig .paper { flex: 1; background: linear-gradient(90deg, #fff, #e8e2d9); }
-  .cig .filter { height: 30px; border-radius: 0 0 4px 4px;
-    background: repeating-linear-gradient(45deg, #e98c3b 0 3px, #d97a2b 3px 6px); }
-  .cig.smoked .tip, .cig.smoked .paper { opacity: 0; }
-  .cig.smoked { justify-content: flex-end; }
-  .cig.smoked .filter { filter: grayscale(.6) brightness(.7); }
-  .cig.smoked .filter::before { content: ""; position: absolute; left: 0; right: 0; bottom: 30px; height: 7px;
-    background: #555; border-radius: 3px 3px 0 0; }
-  .cig.saved .paper { background: linear-gradient(90deg, #fff7da, #f1d98c); }
-  .cig.saved .tip { background: #f1d98c; }
-  .cig.saved { filter: drop-shadow(0 0 6px rgba(255,210,90,.55)); }
-  .pack-key { display: flex; gap: 14px; justify-content: center; font-size: 13px; color: var(--muted); margin: 2px 0 10px; flex-wrap: wrap; }
-  .pack-key i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
-  .cig.over .filter { background: repeating-linear-gradient(45deg, var(--red) 0 3px, #c22f3d 3px 6px); filter: none; }
-  .cig.burning .tip { background: radial-gradient(circle at 50% 30%, #fff3b0, var(--ember) 60%, #b4301a); box-shadow: 0 0 12px var(--ember); }
-  .cig.burning { animation: burn 1s ease-in forwards; }
-  @keyframes burn { 0% { transform: translateY(0); } 40% { transform: translateY(-14px) rotate(-6deg); } 100% { transform: translateY(0); } }
-  .gap-line { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 14px; flex-wrap: wrap; }
-  .gap-line b { color: var(--text); font-weight: 600; }
-  .record { color: var(--gold) !important; }
-  .pot { margin-top: 10px; padding: 10px 12px; background: var(--card2); border-radius: 12px; font-size: 14px; color: var(--muted); }
-  .pot b { color: var(--gold); }
-
-  /* Actions */
-  .actions { display: grid; gap: 10px; }
-  .btn { padding: 16px; border-radius: 16px; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform .1s; }
+  /* Today */
+  .today-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; }
+  .label { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+  .count b { font-size: 46px; line-height: 1; font-weight: 700; }
+  .count span { font-size: 20px; color: var(--muted); margin-left: 4px; }
+  .pill { padding: 7px 12px; border-radius: 99px; font-weight: 600; font-size: 14px; background: rgba(62,230,168,.14); color: var(--mint); white-space: nowrap; }
+  .pill.warn { background: rgba(255,210,90,.14); color: var(--gold); }
+  .pill.bust { background: rgba(255,77,94,.16); color: var(--red); }
+  .segs { display: flex; gap: 4px; margin: 14px 0 10px; }
+  .segs i { flex: 1; height: 12px; border-radius: 6px; background: var(--card2); transition: background .3s; }
+  .segs i.on { background: linear-gradient(180deg, var(--ember2), var(--ember)); }
+  .segs i.over { background: var(--red); }
+  .meta { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--muted); min-height: 28px; }
+  .link { color: var(--muted); font-size: 14px; padding: 4px 0; text-decoration: underline; text-underline-offset: 3px; }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .btn { padding: 15px 10px; border-radius: 16px; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform .1s; }
   .btn:active { transform: scale(.97); }
   .btn-smoke { background: var(--card2); border: 2px solid var(--line); color: var(--muted); }
   .btn-win { background: linear-gradient(135deg, #1fbf87, var(--mint)); color: #04281b; }
   .btn-game { background: linear-gradient(135deg, var(--ember), var(--ember2)); color: #2a1606; }
   .btn-ghost { background: transparent; color: var(--muted); font-size: 15px; padding: 8px; }
+  .mini-row { display: flex; justify-content: center; gap: 24px; margin-top: 8px; }
+
+  /* Town */
+  .town-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
+  .town-head .name { font-size: 20px; font-weight: 600; }
+  .sub { font-size: 13px; color: var(--muted); }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .chip { background: var(--card2); border: 1px solid var(--line); border-radius: 99px; padding: 6px 11px; font-weight: 600; font-size: 14px; white-space: nowrap; }
+  .chip.gold { background: linear-gradient(135deg, var(--gold), var(--ember2)); color: #2a1606; border-color: transparent; }
+  .chip.dim { opacity: .55; }
+  .stage { border-radius: 16px; overflow: hidden; margin: 0 -4px; }
+  .stage canvas { display: block; width: 100%; touch-action: manipulation; cursor: pointer; }
+  .town-msg { font-size: 14px; color: var(--muted); line-height: 1.45; margin: 12px 0 0; }
+  .town-msg b { color: var(--text); }
+  .how summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; }
+  .how summary::-webkit-details-marker { display: none; }
+  .how summary::after { content: "+"; color: var(--muted); font-size: 20px; line-height: 1; }
+  .how[open] summary::after { content: "−"; }
+  .how ol { margin: 12px 0 0; padding-left: 20px; color: var(--muted); line-height: 1.5; font-size: 15px; }
+  .how li { margin-bottom: 6px; }
+  .how b { color: var(--text); }
+  .banner { background: linear-gradient(135deg, rgba(62,230,168,.18), rgba(255,210,90,.14)); border: 1px solid rgba(62,230,168,.4); }
+  .banner p { margin: 0 0 10px; line-height: 1.4; }
   .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-  /* Stats */
+  /* Progress */
+  .streak { display: flex; align-items: center; gap: 14px; }
+  .streak .big { font-size: 48px; font-weight: 700; line-height: 1; }
+  .streak .txt { color: var(--muted); line-height: 1.35; }
+  .streak .txt b { color: var(--text); }
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .stat { background: var(--card2); border-radius: 14px; padding: 12px; }
   .stat .v { font-size: 24px; font-weight: 700; }
   .stat .l { font-size: 13px; color: var(--muted); }
-
-  .banner { background: linear-gradient(135deg, rgba(62,230,168,.18), rgba(255,210,90,.14)); border: 1px solid rgba(62,230,168,.4); }
-  .banner p { margin: 0 0 10px; }
-  .tip-card { font-size: 16px; line-height: 1.4; }
-  .tip-card .q { color: var(--gold); }
-
-  /* Chart */
   .chart svg { width: 100%; height: auto; display: block; }
-
-  /* Badges */
   .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
-  .badge { background: var(--card2); border-radius: 14px; padding: 10px 6px; text-align: center; font-size: 12px; color: var(--muted); }
+  .badge { background: var(--card2); border-radius: 14px; padding: 10px 6px; text-align: center; font-size: 12px; color: var(--muted); border: 1px solid transparent; }
   .badge .e { font-size: 28px; display: block; filter: grayscale(1) opacity(.35); }
-  .badge.got { color: var(--text); border: 1px solid rgba(255,210,90,.4); }
+  .badge.got { color: var(--text); border-color: rgba(255,210,90,.4); }
   .badge.got .e { filter: none; }
+  .foot { text-align: center; color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 18px; }
 
-  /* Modals */
+  /* Sheets */
   .modal { position: fixed; inset: 0; background: rgba(8,6,4,.78); display: none; align-items: flex-end; justify-content: center; z-index: 20; padding: 16px; }
   .modal.show { display: flex; }
-  .sheet { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 20px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; animation: up .25s ease-out; }
+  .sheet { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 20px; width: 100%; max-width: 520px; max-height: 88vh; overflow-y: auto; animation: up .25s ease-out; }
   @keyframes up { from { transform: translateY(40px); opacity: 0; } }
   .sheet h3 { margin: 0 0 8px; font-size: 22px; }
   .sheet p { color: var(--muted); line-height: 1.45; margin: 0 0 14px; }
+  .sheet p b { color: var(--text); }
+  .actions { display: grid; gap: 10px; }
   .reason { background: var(--card2); border-left: 4px solid var(--mint); padding: 12px; border-radius: 10px; margin-bottom: 14px; font-size: 17px; }
+  .warnbox { background: rgba(255,77,94,.12); border: 1px solid rgba(255,77,94,.45); color: var(--text); padding: 12px; border-radius: 12px; margin-bottom: 14px; line-height: 1.4; }
   label { display: block; font-size: 14px; color: var(--muted); margin: 10px 0 4px; }
   input, textarea { width: 100%; font-family: inherit; font-size: 16px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--card2); color: var(--text); }
   .danger { color: var(--red); }
-
-  /* Breathe */
+  .types { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .type { background: var(--card2); border: 1px solid var(--line); border-radius: 14px; padding: 6px 10px 10px; text-align: left; display: flex; flex-direction: column; gap: 2px; }
+  .type canvas { width: 100%; height: auto; display: block; }
+  .type .n { font-weight: 600; font-size: 16px; }
+  .type .r { font-size: 12px; color: var(--muted); line-height: 1.3; }
+  .type .c { font-size: 14px; color: var(--gold); font-weight: 600; margin-top: 4px; }
+  .type:disabled { opacity: .4; cursor: default; }
+  .prev { width: 160px; height: 120px; display: block; margin: 0 auto 6px; }
   .breathe { display: grid; place-items: center; margin: 10px 0 16px; }
   .circle { width: 160px; height: 160px; border-radius: 50%; display: grid; place-items: center; font-size: 18px; font-weight: 600;
     background: radial-gradient(circle, rgba(62,230,168,.55), rgba(62,230,168,.08)); transition: transform 4s ease-in-out; }
@@ -145,205 +152,182 @@
   .game-end.show { display: flex; }
   .quit { pointer-events: auto; background: rgba(255,255,255,.08); padding: 6px 12px; border-radius: 10px; font-size: 15px; }
 
-  /* Toasts */
   #toasts { position: fixed; left: 0; right: 0; top: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 50; pointer-events: none; padding: 0 16px; }
-  .toast { background: var(--card2); border: 1px solid var(--line); padding: 12px 16px; border-radius: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,.4); animation: toast 3.2s forwards; max-width: 480px; text-align: center; }
+  .toast { background: var(--card2); border: 1px solid var(--line); padding: 12px 16px; border-radius: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,.4); animation: toast 3.6s forwards; max-width: 480px; text-align: center; }
   .toast.good { border-color: var(--mint); }
   .toast.bad { border-color: var(--red); }
   .toast.gold { border-color: var(--gold); }
-  @keyframes toast { 0% { opacity: 0; transform: translateY(-10px); } 10%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-10px); } }
-  /* Builder */
-  .builder { --paper: #f3efe6; }
-  .b-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-  .b-head h2 { margin: 0 0 4px; }
-  .b-sub { font-size: 14px; color: var(--muted); line-height: 1.4; }
-  .b-sub b { color: var(--text); font-weight: 600; }
-  .b-count { flex: none; text-align: center; background: linear-gradient(135deg, var(--gold), var(--ember2)); color: #2a1606;
-    border-radius: 14px; padding: 6px 12px; min-width: 70px; box-shadow: 0 6px 18px rgba(255,179,71,.25); }
-  .b-count b { display: block; font-size: 30px; line-height: 1.05; }
-  .b-count span { font-size: 12px; font-weight: 600; }
-  .b-count.empty { background: var(--card2); color: var(--muted); box-shadow: none; }
-  .b-stage { position: relative; border-radius: 14px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
-  .b-stage canvas { display: block; width: 100%; touch-action: manipulation; cursor: crosshair; }
-  .b-stage.remove canvas { cursor: not-allowed; }
-  .b-hint { position: absolute; left: 0; right: 0; top: 38%; text-align: center; font-weight: 600; color: rgba(255,255,255,.92);
-    text-shadow: 0 2px 8px rgba(0,0,0,.45); pointer-events: none; padding: 0 16px; font-size: 17px; }
-  .b-tools { margin-top: 12px; }
-  .seg { display: flex; background: var(--card2); border-radius: 14px; padding: 4px; gap: 4px; }
-  .seg button { flex: 1; min-height: 52px; padding: 6px 8px; border-radius: 10px; background: transparent; color: var(--muted);
-    font-size: 13px; font-weight: 500; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
-  .seg button.on { background: var(--line); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,.25); }
-  .ico { display: block; border-radius: 3px; box-shadow: 0 1px 0 rgba(0,0,0,.3); }
-  .ico.long { width: 38px; height: 9px; background: linear-gradient(90deg, #d98a3d 0 26%, #e8c25a 26% 30%, var(--paper) 30%); }
-  .ico.half { width: 20px; height: 9px; background: linear-gradient(90deg, #d98a3d 0 40%, #e8c25a 40% 48%, var(--paper) 48%); }
-  .ico.stand { width: 9px; height: 30px; background: linear-gradient(0deg, #d98a3d 0 26%, #e8c25a 26% 30%, var(--paper) 30%); }
-  .swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-top: 12px; }
-  .sw { width: 100%; max-width: 36px; aspect-ratio: 1; justify-self: center; border-radius: 50%; border: 3px solid var(--card); box-shadow: 0 0 0 2px var(--line); padding: 0; }
-  .sw.on { box-shadow: 0 0 0 2px var(--gold); transform: scale(1.08); }
-  .b-row { display: flex; gap: 6px; margin-top: 12px; }
-  .b-row .chip { flex: 1; padding: 8px 4px; }
-  .chip.danger-on { color: var(--red); border-color: var(--red); }
-  .chip { background: var(--card2); border: 1px solid var(--line); color: var(--muted); border-radius: 99px; padding: 7px 12px; font-size: 13px; font-weight: 500; }
-  .chip.on { color: var(--text); border-color: var(--gold); }
-  .b-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
-  .b-stats div { background: var(--card2); border-radius: 12px; padding: 8px; text-align: center; font-size: 12px; color: var(--muted); }
-  .b-stats b { display: block; font-size: 18px; color: var(--text); }
-  .shake { animation: shake .35s; }
-  @keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
-  .foot { text-align: center; color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 20px; }
+  @keyframes toast { 0% { opacity: 0; transform: translateY(-10px); } 8%, 88% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-10px); } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top">
-    <h1>🚭 Stub It Out</h1>
+  <header class="top">
+    <div class="brand">
+      <div class="logo">🚭</div>
+      <div><h1>Stub It Out</h1><div class="tagline">Cut down. Build up.</div></div>
+    </div>
     <button class="icon-btn" id="openSettings" aria-label="Settings">⚙️</button>
-  </div>
+  </header>
 
-  <div class="card level">
-    <div class="lvl-badge" id="lvlNum">1</div>
-    <div class="lvl-info">
-      <div class="lvl-title" id="lvlTitle">Spark</div>
-      <div class="lvl-sub" id="lvlSub">0 XP</div>
-      <div class="bar"><i id="lvlBar" style="width:0"></i></div>
-    </div>
-  </div>
+  <nav class="tabs">
+    <button data-tab="town" class="on">🏙️ Town</button>
+    <button data-tab="progress">📊 Progress</button>
+  </nav>
 
-  <div class="card banner" id="dropBanner" hidden>
-    <p id="dropText"></p>
-    <div class="row2">
-      <button class="btn btn-win" id="dropYes" style="font-size:16px">Level up 💪</button>
-      <button class="btn btn-smoke" id="dropNo" style="font-size:16px">Not yet</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="today-head">
-      <div class="count"><span id="smokedNum">0</span><small> / <span id="limitNum">11</span> today</small></div>
-      <div class="left-msg" id="leftMsg"></div>
-    </div>
-    <div class="pack" id="pack"></div>
-    <div class="pack-key" id="packKey"></div>
-    <div class="gap-line">
-      <span>Since last: <b id="sinceLast">—</b></span>
-      <span id="bestGapWrap">Best gap: <b id="bestGap">—</b></span>
-    </div>
-    <div class="pot" id="pot"></div>
-  </div>
-
-  <div class="card actions">
-    <button class="btn btn-win" id="beatCraving">💪 I beat a craving <span style="opacity:.7">+5 XP</span></button>
-    <button class="btn btn-game" id="playGame">🎮 Craving Crusher</button>
-    <button class="btn btn-smoke" id="smokeOne">🚬 I'm having one…</button>
-    <button class="btn btn-ghost" id="undo" hidden>↩︎ Undo last cigarette</button>
-  </div>
-
-  <div class="card builder" id="builder">
-    <div class="b-head">
-      <div>
-        <h2>🧱 Cigarette builder</h2>
-        <div class="b-sub" id="bSub"></div>
-      </div>
-      <div class="b-count" id="bCount"><b id="bricks">0</b><span>to build</span></div>
-    </div>
-    <div class="b-stage" id="bStage">
-      <canvas id="bcv" aria-label="Your cigarette build. Tap to drop a cigarette brick."></canvas>
-      <div class="b-hint" id="bHint" hidden></div>
-    </div>
-    <div class="b-tools">
-      <div class="seg" id="shapeSeg">
-        <button data-shape="long"><i class="ico long"></i>Lying</button>
-        <button data-shape="stand"><i class="ico stand"></i>Standing</button>
-        <button data-shape="half"><i class="ico half"></i>Snapped</button>
+  <section id="tab-town">
+    <div class="card banner" id="dropBanner" hidden>
+      <p id="dropText"></p>
+      <div class="row2">
+        <button class="btn btn-win" id="dropYes" style="font-size:16px">Let's do it 💪</button>
+        <button class="btn btn-smoke" id="dropNo" style="font-size:16px">Not yet</button>
       </div>
     </div>
-    <div class="swatches" id="swatches"></div>
-    <div class="b-row" id="themes"></div>
-    <div class="b-row">
-      <button class="chip" id="bRemove">🧹 Remove</button>
-      <button class="chip" id="bUndo">↩︎ Undo</button>
-      <button class="chip" id="bClear">🧨 Clear all</button>
+
+    <div class="card">
+      <div class="today-row">
+        <div>
+          <div class="label">Today</div>
+          <div class="count"><b id="smokedNum">0</b><span>/ <span id="limitNum">11</span></span></div>
+        </div>
+        <div class="pill" id="statusPill"></div>
+      </div>
+      <div class="segs" id="segs"></div>
+      <div class="meta"><span id="sinceLast"></span><button class="link" id="undo" hidden>↩︎ Undo last</button></div>
+      <div class="btn-row">
+        <button class="btn btn-smoke" id="smokeOne">🚬 Having one</button>
+        <button class="btn btn-win" id="beatCraving">💪 Beat a craving</button>
+      </div>
+      <div class="mini-row">
+        <button class="link" id="playGame">🎮 Craving game</button>
+        <button class="link" id="openBreathe">🌬️ Breathe</button>
+      </div>
     </div>
-    <div class="b-stats">
-      <div><b id="bPlaced">0</b>bricks placed</div>
-      <div><b id="bHigh">0</b>rows high</div>
-      <div><b id="bLength">0 cm</b>end to end</div>
+
+    <div class="card" id="townCard">
+      <div class="town-head">
+        <div><div class="name" id="townName">Ashville</div><div class="sub" id="townRank"></div></div>
+        <div class="chips"><span class="chip gold" id="walletChip">🚬 0</span><span class="chip" id="popChip">👥 0</span></div>
+      </div>
+      <div class="stage"><canvas id="tcv" aria-label="Your town. Tap a plot to build."></canvas></div>
+      <p class="town-msg" id="townMsg"></p>
     </div>
-  </div>
 
-  <div class="card tip-card" id="tipCard"></div>
+    <details class="card how" id="how">
+      <summary>How it works</summary>
+      <ol id="howList"></ol>
+    </details>
+  </section>
 
-  <div class="card">
-    <h2>Your wins</h2>
-    <div class="stats">
-      <div class="stat"><div class="v" id="streak">0</div><div class="l">🔥 days in a row at or under limit</div></div>
-      <div class="stat"><div class="v" id="money">£0</div><div class="l">💷 saved vs. before</div></div>
-      <div class="stat"><div class="v" id="life">0h</div><div class="l">❤️ life clawed back*</div></div>
-      <div class="stat"><div class="v" id="cravings">0</div><div class="l">💪 cravings beaten</div></div>
+  <section id="tab-progress" hidden>
+    <div class="card streak">
+      <div class="big" id="streakNum">0</div>
+      <div class="txt">🔥 <b>days in a row</b> at or under your limit<br><span id="bestStreak"></span></div>
     </div>
-  </div>
-
-  <div class="card chart">
-    <h2>Last 14 days</h2>
-    <div id="chart"></div>
-  </div>
-
-  <div class="card">
-    <h2>Badges</h2>
-    <div class="badges" id="badges"></div>
-  </div>
-
-  <p class="foot">
-    *Estimate: research from UCL (2024) suggests each cigarette costs around 20 minutes of life.<br>
-    Cravings usually peak and fade within 3–5 minutes — you only have to outlast them.<br>
-    Want extra backup? Free stop-smoking services and nicotine replacement can roughly double your chances.<br>
-    Your progress is saved on this device only.
-  </p>
+    <div class="card">
+      <h2>What you've won back</h2>
+      <div class="stats">
+        <div class="stat"><div class="v" id="money">£0</div><div class="l">💷 saved vs. before</div></div>
+        <div class="stat"><div class="v" id="life">0h</div><div class="l">❤️ life clawed back*</div></div>
+        <div class="stat"><div class="v" id="cravings">0</div><div class="l">🌳 cravings beaten</div></div>
+        <div class="stat"><div class="v" id="safeDays">0</div><div class="l">✅ days under limit</div></div>
+      </div>
+    </div>
+    <div class="card chart">
+      <h2>Last 14 days</h2>
+      <div id="chart"></div>
+    </div>
+    <div class="card">
+      <h2>Badges</h2>
+      <div class="badges" id="badges"></div>
+    </div>
+    <p class="foot">
+      *Estimate: research from UCL (2024) suggests each cigarette costs around 20 minutes of life.<br>
+      Cravings usually peak and fade within 3–5 minutes — you only have to outlast them.<br>
+      Want extra backup? Free stop-smoking services and nicotine replacement can roughly double your chances.<br>
+      Your progress is saved on this device only.
+    </p>
+  </section>
 </div>
 
-<!-- "I'm having one" sheet -->
+<!-- Having one -->
 <div class="modal" id="smokeModal">
   <div class="sheet">
     <h3>Hold up a sec ✋</h3>
     <div class="reason" id="reasonBox" hidden></div>
+    <div class="warnbox" id="smokeWarn" hidden></div>
     <p id="smokeCost"></p>
     <div class="actions">
       <button class="btn btn-game" id="smokeGame">🎮 Crush the craving first</button>
       <button class="btn btn-win" id="smokeBreathe">🌬️ Breathe for 5 minutes</button>
-      <button class="btn btn-smoke" id="smokeConfirm">🚬 Log it anyway</button>
+      <button class="btn btn-smoke" id="smokeConfirm">🚬 Log it</button>
       <button class="btn btn-ghost" data-close>Never mind, I'm good</button>
     </div>
   </div>
 </div>
 
-<!-- Breathing sheet -->
+<!-- Build -->
+<div class="modal" id="buildModal">
+  <div class="sheet">
+    <h3>Build here 🏗️</h3>
+    <p id="buildText"></p>
+    <div class="types" id="types"></div>
+    <div class="actions" style="margin-top:12px"><button class="btn btn-ghost" data-close>Close</button></div>
+  </div>
+</div>
+
+<!-- Building info -->
+<div class="modal" id="infoModal">
+  <div class="sheet">
+    <canvas class="prev" id="infoPrev" width="320" height="240"></canvas>
+    <h3 id="infoTitle"></h3>
+    <p id="infoText"></p>
+    <div class="actions">
+      <button class="btn btn-smoke" id="demolish"></button>
+      <button class="btn btn-ghost" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- New day -->
+<div class="modal" id="morningModal">
+  <div class="sheet">
+    <h3 id="morningTitle"></h3>
+    <p id="morningText"></p>
+    <div class="actions"><button class="btn btn-win" data-close>Let's build 🏗️</button></div>
+  </div>
+</div>
+
+<!-- Breathing -->
 <div class="modal" id="breatheModal">
   <div class="sheet">
     <h3>Ride the wave 🌊</h3>
     <p>Cravings rise, peak and fade. Breathe with the circle until the timer runs out.</p>
     <div class="timer" id="breatheTimer">5:00</div>
     <div class="breathe"><div class="circle" id="circle">Breathe in</div></div>
-    <div class="actions" id="breatheActions">
-      <button class="btn btn-win" id="breatheDone">💪 Craving's gone</button>
+    <div class="actions">
+      <button class="btn btn-win" id="breatheDone">💪 Craving's gone — plant a tree</button>
       <button class="btn btn-ghost" data-close>Stop</button>
     </div>
   </div>
 </div>
 
-<!-- Settings sheet -->
+<!-- Settings -->
 <div class="modal" id="settingsModal">
   <div class="sheet">
     <h3>Settings</h3>
-    <label for="sLimit">Daily limit</label>
-    <input id="sLimit" type="number" min="0" max="40" inputmode="numeric">
-    <label for="sBaseline">How many a day did you smoke before? (every one under this is a brick)</label>
-    <input id="sBaseline" type="number" min="0" max="80" inputmode="numeric">
+    <div class="row2">
+      <div><label for="sBaseline">Before cutting down, a day</label><input id="sBaseline" type="number" min="0" max="80" inputmode="numeric"></div>
+      <div><label for="sLimit">Your daily limit now</label><input id="sLimit" type="number" min="0" max="40" inputmode="numeric"></div>
+    </div>
     <div class="row2">
       <div><label for="sPrice">Price per pack</label><input id="sPrice" type="number" min="0" step="0.01" inputmode="decimal"></div>
       <div><label for="sPack">Cigarettes per pack</label><input id="sPack" type="number" min="1" inputmode="numeric"></div>
     </div>
-    <label for="sCur">Currency symbol</label>
-    <input id="sCur" maxlength="3">
+    <div class="row2">
+      <div><label for="sCur">Currency symbol</label><input id="sCur" maxlength="3"></div>
+      <div><label for="sTown">Town name</label><input id="sTown" maxlength="24"></div>
+    </div>
     <label for="sReason">Why are you cutting down? (shown when you go to smoke)</label>
     <textarea id="sReason" rows="2" placeholder="e.g. To play football with my kids without getting out of breath"></textarea>
     <div class="actions" style="margin-top:16px">
@@ -368,7 +352,7 @@
       <h3 id="gEndTitle">Craving crushed!</h3>
       <p id="gEndText"></p>
       <div class="actions">
-        <button class="btn btn-win" id="gWon">💪 Craving's gone</button>
+        <button class="btn btn-win" id="gWon">💪 Craving's gone — plant a tree</button>
         <button class="btn btn-game" id="gAgain">🔁 Play again</button>
         <button class="btn btn-ghost" id="gClose">Close</button>
       </div>
@@ -381,24 +365,33 @@
 <script>
 const KEY = 'stubItOut.v1';
 const MIN_PER_CIG = 20;
-const GAME_XP_CAP = 60;
+let N = 5; // town is N × N plots and grows as you build
 const DEFAULTS = {
   settings: { limit: 11, baseline: 20, packPrice: 15, packSize: 20, currency: '£', reason: '' },
   days: {},
+  town: { name: 'Ashville', buildings: [] },
   badgesSeen: [],
   dropDismissed: '',
-  build: { pieces: [], shape: 'long', colour: 'classic', theme: 'day', mode: 'build', lastBurn: null }
+  lastSeen: '',
+  v: 2
 };
 
+const clone = o => JSON.parse(JSON.stringify(o));
 let state = load();
 
 function load() {
   try {
     const s = JSON.parse(localStorage.getItem(KEY));
-    const base = JSON.parse(JSON.stringify(DEFAULTS));
-    if (s && s.days) return { ...base, ...s, settings: { ...base.settings, ...s.settings }, build: { ...base.build, ...s.build } };
+    const base = clone(DEFAULTS);
+    if (s && s.days) {
+      const st = { ...base, ...s, settings: { ...base.settings, ...s.settings }, town: { ...base.town, ...s.town } };
+      delete st.build; delete st.city;
+      // Badges changed in v2: mark the ones already earned as seen instead of announcing them all.
+      if (st.v !== 2) { st.v = 2; st.badgesSeen = null; }
+      return st;
+    }
   } catch (e) {}
-  return JSON.parse(JSON.stringify(DEFAULTS));
+  return clone(DEFAULTS);
 }
 function save() {
   try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
@@ -412,14 +405,23 @@ function shiftKey(k, delta) {
   const [y, m, d] = k.split('-').map(Number);
   return keyOf(new Date(y, m - 1, d + delta));
 }
+function fmtDay(k) {
+  const [y, m, d] = k.split('-').map(Number);
+  return new Date(y, m - 1, d).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
+}
 function today() {
   const k = todayKey();
   if (!state.days[k]) {
-    state.days[k] = { smoked: [], resisted: 0, game: 0, limit: state.settings.limit, baseline: state.settings.baseline };
+    state.days[k] = { smoked: [], resisted: 0, limit: state.settings.limit, baseline: state.settings.baseline };
     save();
   }
   return state.days[k];
 }
+const baselineOf = d => d.baseline ?? state.settings.baseline;
+// Cigarettes you get to build with each morning: your old daily amount minus today's limit.
+const committedOf = d => Math.max(0, baselineOf(d) - d.limit);
+const isBust = d => d.smoked.length > d.limit;
+const bonusOf = d => Math.max(0, d.limit - d.smoked.length);
 const perCig = () => state.settings.packPrice / Math.max(1, state.settings.packSize);
 const money = v => state.settings.currency + (v >= 100 ? Math.round(v) : v.toFixed(2));
 function fmtDur(ms) {
@@ -429,475 +431,711 @@ function fmtDur(ms) {
   return h + 'h ' + pad(m % 60) + 'm';
 }
 
-// ---------- Scoring ----------
-// Completed days bank (unsmoked × 10) + 25 if at/under limit. Cravings and games bank instantly.
-function potFor(d) {
-  const n = d.smoked.length;
-  return n <= d.limit ? (d.limit - n) * 10 + 25 : 0;
+// ---------- Town economy ----------
+// Anything built on a day you went over your limit burned down. Trees can't burn — you earned those.
+const isBurned = b => b.type !== 'tree' && !!state.days[b.day] && isBust(state.days[b.day]);
+const isUnderConstruction = b => b.type !== 'tree' && b.day === todayKey() && !isBurned(b);
+const tileAt = (x, y) => state.town.buildings.find(b => b.x === x && b.y === y) || null;
+function wallet() {
+  const tk = todayKey();
+  let earned = 0;
+  for (const [k, d] of Object.entries(state.days)) {
+    if (isBust(d)) continue;
+    earned += committedOf(d) + (k < tk ? bonusOf(d) : 0);
+  }
+  let spent = 0;
+  for (const b of state.town.buildings) if (!isBurned(b)) spent += TYPES[b.type].cost;
+  return earned - spent;
 }
+const population = () => state.town.buildings.reduce((a, b) => a + (isBurned(b) ? 0 : TYPES[b.type].pop), 0);
+// Smallest island (5–10 plots a side) that fits everything and keeps plenty of free land.
+function fitGrid() {
+  const used = state.town.buildings.length;
+  const far = state.town.buildings.reduce((m, b) => Math.max(m, b.x + 1, b.y + 1), 0);
+  let n = 5;
+  while (n < 10 && (n * n - used < Math.max(8, n * n * .4) || n < far)) n++;
+  return n;
+}
+const rankOf = p => p >= 200 ? 'City' : p >= 80 ? 'Town' : p >= 30 ? 'Village' : p > 0 ? 'Hamlet' : 'Empty land';
+// If a settings change shrinks today's cigarettes below what's built, take down today's newest builds.
+function settleWallet() {
+  let removed = 0;
+  while (wallet() < 0) {
+    const todays = state.town.buildings.filter(isUnderConstruction);
+    if (!todays.length) break;
+    const b = todays.reduce((a, x) => (x.ts > a.ts ? x : a));
+    state.town.buildings.splice(state.town.buildings.indexOf(b), 1);
+    removed++;
+  }
+  if (removed) save();
+  return removed;
+}
+
+// ---------- Drawing: everything is made of cigarettes ----------
+const PAPER = '#f6f2e9', PAPER_L = '#fffdf8', PAPER_D = '#d6cdbb';
+const FILTER = '#e48a3c', FILTER_D = '#bd6a28', BAND = '#ecc75e', TIP = '#6b4423';
+const lerp = (a, b, t) => a + (b - a) * t;
+const lp = (p, q, t) => [lerp(p[0], q[0], t), lerp(p[1], q[1], t)];
+const up = (p, h) => [p[0], p[1] - h];
+function line(ctx, x1, y1, x2, y2) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); }
+function poly(ctx, pts, fill, stroke) {
+  ctx.beginPath();
+  pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+  ctx.closePath();
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 1; ctx.stroke(); }
+}
+function ellipse(ctx, x, y, rx, ry, fill) { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); ctx.fillStyle = fill; ctx.fill(); }
+function shadow(ctx, cx, cy, r) { ellipse(ctx, cx, cy + r * .08, r, r * .5, 'rgba(20,45,15,.22)'); }
+
+// One cigarette, filter end at (x1,y1), tobacco end at (x2,y2).
+function cig(ctx, x1, y1, x2, y2, w) {
+  const len = Math.hypot(x2 - x1, y2 - y1) || 1;
+  const ux = (x2 - x1) / len, uy = (y2 - y1) / len;
+  const f = Math.min(len * .3, w * 3.2);
+  const fx = x1 + ux * f, fy = y1 + uy * f;
+  ctx.lineCap = 'round';
+  ctx.lineWidth = w + 1.4; ctx.strokeStyle = 'rgba(70,45,25,.45)'; line(ctx, x1, y1, x2, y2);
+  ctx.lineWidth = w; ctx.strokeStyle = PAPER; line(ctx, x1, y1, x2, y2);
+  ellipse(ctx, x1, y1, w / 2, w / 2, FILTER);
+  ctx.lineCap = 'butt';
+  ctx.strokeStyle = FILTER; line(ctx, x1, y1, fx, fy);
+  ctx.strokeStyle = BAND; line(ctx, fx, fy, fx + ux * w * .28, fy + uy * w * .28);
+  ellipse(ctx, x2, y2, w * .4, w * .4, TIP);
+  let nx = -uy, ny = ux;
+  if (ny > 0 || (ny === 0 && nx > 0)) { nx = -nx; ny = -ny; }
+  ctx.lineCap = 'round';
+  ctx.lineWidth = Math.max(.8, w * .22); ctx.strokeStyle = 'rgba(255,255,255,.65)';
+  const o = w * .2;
+  line(ctx, fx + nx * o + ux * w * .5, fy + ny * o + uy * w * .5, x2 + nx * o - ux * w * .6, y2 + ny * o - uy * w * .6);
+}
+// A wall of cigarettes standing filter-down between ground points a → b.
+function standWall(ctx, a, b, h, n, light) {
+  poly(ctx, [a, b, up(b, h), up(a, h)], light ? PAPER : PAPER_D);
+  const fh = h * .27;
+  poly(ctx, [a, b, up(b, fh), up(a, fh)], light ? FILTER : FILTER_D);
+  ctx.lineWidth = 1.2; ctx.strokeStyle = BAND; line(ctx, ...up(a, fh), ...up(b, fh));
+  ctx.lineWidth = .8; ctx.strokeStyle = 'rgba(80,55,30,.32)';
+  for (let k = 1; k < n; k++) { const p = lp(a, b, k / n); line(ctx, p[0], p[1], p[0], p[1] - h); }
+  ctx.lineWidth = 1.4; ctx.strokeStyle = TIP; line(ctx, ...up(a, h), ...up(b, h));
+}
+// A wall of cigarettes lying in rows, filters alternating ends, with windows.
+function lyingWall(ctx, a, b, h, rows, light, night, seed) {
+  poly(ctx, [a, b, up(b, h), up(a, h)], light ? PAPER : PAPER_D);
+  const rh = h / rows;
+  for (let r = 0; r < rows; r++) {
+    const y0 = r * rh, y1 = y0 + rh;
+    const [t0, t1] = r % 2 ? [.8, 1] : [0, .2];
+    poly(ctx, [up(lp(a, b, t0), y0), up(lp(a, b, t1), y0), up(lp(a, b, t1), y1), up(lp(a, b, t0), y1)], light ? FILTER : FILTER_D);
+    if (r > 0) for (const t of [.32, .56]) {
+      const lit = night && (r * 7 + Math.round(t * 10) + seed * 3) % 5 < 3;
+      poly(ctx, [up(lp(a, b, t), y0 + rh * .2), up(lp(a, b, t + .13), y0 + rh * .2), up(lp(a, b, t + .13), y1 - rh * .2), up(lp(a, b, t), y1 - rh * .2)],
+        lit ? '#ffd86b' : light ? '#4a6984' : '#3a5368');
+    }
+    ctx.lineWidth = .9; ctx.strokeStyle = 'rgba(80,55,30,.35)'; line(ctx, ...up(a, y1), ...up(b, y1));
+  }
+}
+// A cone roof of cigarettes leaning together, filters at the eaves.
+function cone(ctx, cx, by, rx, ry, h, n) {
+  const ay = by - h;
+  const g = ctx.createLinearGradient(cx - rx, 0, cx + rx, 0);
+  g.addColorStop(0, PAPER_L); g.addColorStop(.5, PAPER); g.addColorStop(1, '#c9bfaa');
+  ctx.beginPath(); ctx.moveTo(cx - rx, by); ctx.lineTo(cx, ay); ctx.lineTo(cx + rx, by);
+  ctx.ellipse(cx, by, rx, ry, 0, 0, Math.PI); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
+  const t = .26, by2 = by - h * t, rx2 = rx * (1 - t), ry2 = ry * (1 - t);
+  const fg = ctx.createLinearGradient(cx - rx, 0, cx + rx, 0);
+  fg.addColorStop(0, '#f0a050'); fg.addColorStop(.5, FILTER); fg.addColorStop(1, FILTER_D);
+  ctx.beginPath(); ctx.moveTo(cx - rx, by); ctx.ellipse(cx, by, rx, ry, 0, Math.PI, 0, true);
+  ctx.lineTo(cx + rx2, by2); ctx.ellipse(cx, by2, rx2, ry2, 0, 0, Math.PI); ctx.closePath(); ctx.fillStyle = fg; ctx.fill();
+  ctx.lineWidth = 1.2; ctx.strokeStyle = BAND; ctx.beginPath(); ctx.ellipse(cx, by2, rx2, ry2, 0, 0, Math.PI); ctx.stroke();
+  ctx.lineWidth = .8; ctx.strokeStyle = 'rgba(80,55,30,.3)';
+  for (let k = 1; k < n; k++) {
+    const a = Math.PI * k / n;
+    line(ctx, cx + rx * Math.cos(a), by + ry * Math.sin(a), cx, ay);
+  }
+  ellipse(ctx, cx, ay, Math.max(1.5, rx * .1), Math.max(1.5, rx * .1), TIP);
+}
+function pyramid(ctx, cx, by, hw, hh, h) {
+  const L = [cx - hw, by], F = [cx, by + hh], R = [cx + hw, by], A = [cx, by - h];
+  poly(ctx, [L, F, A], PAPER); poly(ctx, [F, R, A], PAPER_D);
+  poly(ctx, [L, F, lp(F, A, .25), lp(L, A, .25)], FILTER);
+  poly(ctx, [F, R, lp(R, A, .25), lp(F, A, .25)], FILTER_D);
+  ctx.lineWidth = .8; ctx.strokeStyle = 'rgba(80,55,30,.3)';
+  for (let k = 1; k < 5; k++) { line(ctx, ...lp(L, F, k / 5), ...A); line(ctx, ...lp(F, R, k / 5), ...A); }
+  ctx.lineWidth = 1.2; ctx.strokeStyle = BAND;
+  ctx.beginPath(); ctx.moveTo(...lp(L, A, .25)); ctx.lineTo(...lp(F, A, .25)); ctx.lineTo(...lp(R, A, .25)); ctx.stroke();
+}
+function block(ctx, cx, by, hw, hh, h, top, left, right) {
+  const L = [cx - hw, by], F = [cx, by + hh], R = [cx + hw, by], B = [cx, by - hh];
+  poly(ctx, [L, F, up(F, h), up(L, h)], left);
+  poly(ctx, [F, R, up(R, h), up(F, h)], right);
+  poly(ctx, [up(L, h), up(F, h), up(R, h), up(B, h)], top);
+}
+function win(ctx, a, b, y0, y1, lit) {
+  poly(ctx, [up(a, y0), up(b, y0), up(b, y1), up(a, y1)], lit ? '#ffd86b' : '#4a6984', 'rgba(70,45,25,.45)');
+}
+
+function drawLamp(ctx, cx, cy, tw, o) {
+  const h = tw * .5, w = Math.max(2, tw * .06);
+  if (o.night) {
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, tw * .32);
+    g.addColorStop(0, 'rgba(255,214,110,.45)'); g.addColorStop(1, 'rgba(255,214,110,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(cx, cy, tw * .32, tw * .16, 0, 0, 7); ctx.fill();
+  }
+  shadow(ctx, cx, cy, tw * .07);
+  cig(ctx, cx, cy - h, cx, cy, w);
+  if (o.night) {
+    const g = ctx.createRadialGradient(cx, cy - h, 0, cx, cy - h, tw * .2);
+    g.addColorStop(0, 'rgba(255,220,120,.9)'); g.addColorStop(1, 'rgba(255,220,120,0)');
+    ctx.fillStyle = g; ctx.fillRect(cx - tw * .2, cy - h - tw * .2, tw * .4, tw * .4);
+  }
+}
+function drawBench(ctx, cx, cy, tw, o) {
+  const w = Math.max(2, tw * .07), dx = tw * .2, dy = dx / 2, lift = tw * .09;
+  shadow(ctx, cx, cy, tw * .24);
+  ctx.lineWidth = Math.max(1.5, tw * .03); ctx.strokeStyle = '#5a3d24'; ctx.lineCap = 'round';
+  for (const s of [-.8, .8]) line(ctx, cx + dx * s, cy + dy * s, cx + dx * s, cy + dy * s - lift);
+  const bx = tw * .05, by = -tw * .025 - lift * .9;
+  cig(ctx, cx - dx + bx, cy - dy + by - lift, cx + dx + bx, cy + dy + by - lift, w);
+  cig(ctx, cx + dx, cy + dy - lift, cx - dx, cy - dy - lift, w);
+}
+function drawTeepee(ctx, cx, cy, tw, o) {
+  const rx = tw * .25, ry = rx / 2, h = tw * .5, w = Math.max(2, tw * .055);
+  const ax = cx, ay = cy - h;
+  shadow(ctx, cx, cy, rx * 1.1);
+  const poles = [0, 1, 2, 3, 4].map(k => {
+    const a = -Math.PI / 2 + k * 2 * Math.PI / 5 + .35;
+    return [cx + rx * Math.cos(a), cy + ry * Math.sin(a), Math.sin(a)];
+  });
+  const pole = p => cig(ctx, p[0], p[1], ax + (ax - p[0]) * .25, ay + (ay - p[1]) * .25, w);
+  poles.filter(p => p[2] < 0).forEach(pole);
+  const g = ctx.createLinearGradient(cx - rx, 0, cx + rx, 0);
+  g.addColorStop(0, PAPER_L); g.addColorStop(.6, '#efe6d2'); g.addColorStop(1, '#c9bba0');
+  ctx.beginPath(); ctx.moveTo(cx - rx * .9, cy); ctx.lineTo(ax, ay + h * .08); ctx.lineTo(cx + rx * .9, cy);
+  ctx.ellipse(cx, cy, rx * .9, ry * .9, 0, 0, Math.PI); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
+  ctx.lineWidth = Math.max(1.5, tw * .03); ctx.strokeStyle = FILTER;
+  ctx.beginPath(); ctx.ellipse(cx, cy - h * .45, rx * .5, ry * .5, 0, .1, Math.PI - .1); ctx.stroke();
+  poly(ctx, [[cx - rx * .25, cy + ry * .85], [cx + rx * .25, cy + ry * .85], [cx, cy - h * .38]], o.night ? '#e0a54a' : '#3b2a1e');
+  poles.filter(p => p[2] >= 0).forEach(pole);
+}
+function drawHouse(ctx, cx, cy, tw, o) {
+  const hw = tw * .28, hh = hw / 2, H = tw * .3;
+  const L = [cx - hw, cy], F = [cx, cy + hh], R = [cx + hw, cy];
+  shadow(ctx, cx, cy, hw * 1.25);
+  standWall(ctx, L, F, H, 4, true);
+  standWall(ctx, F, R, H, 4, false);
+  const d1 = lp(F, R, .38), d2 = lp(F, R, .66);
+  poly(ctx, [d1, d2, up(d2, H * .62), up(d1, H * .62)], '#5a3a22');
+  win(ctx, lp(L, F, .32), lp(L, F, .7), H * .42, H * .8, o.night);
+  cone(ctx, cx, cy - H, hw * 1.22, hh * 1.22, tw * .36, 8);
+}
+function drawTower(ctx, cx, cy, tw, o) {
+  const rx = tw * .19, ry = rx / 2, H = tw * .6, rowH = H / 2;
+  shadow(ctx, cx, cy, rx * 1.3);
+  const g = ctx.createLinearGradient(cx - rx, 0, cx + rx, 0);
+  g.addColorStop(0, PAPER_L); g.addColorStop(.5, PAPER); g.addColorStop(1, PAPER_D);
+  ctx.beginPath(); ctx.moveTo(cx - rx, cy - H); ctx.lineTo(cx - rx, cy); ctx.ellipse(cx, cy, rx, ry, 0, Math.PI, 0, true);
+  ctx.lineTo(cx + rx, cy - H); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
+  const fg = ctx.createLinearGradient(cx - rx, 0, cx + rx, 0);
+  fg.addColorStop(0, '#f0a050'); fg.addColorStop(.5, FILTER); fg.addColorStop(1, FILTER_D);
+  for (let r = 0; r < 2; r++) {
+    const yb = cy - r * rowH, fh = rowH * .27;
+    ctx.beginPath(); ctx.moveTo(cx - rx, yb); ctx.ellipse(cx, yb, rx, ry, 0, Math.PI, 0, true);
+    ctx.lineTo(cx + rx, yb - fh); ctx.ellipse(cx, yb - fh, rx, ry, 0, 0, Math.PI); ctx.closePath(); ctx.fillStyle = fg; ctx.fill();
+    ctx.lineWidth = 1.2; ctx.strokeStyle = BAND; ctx.beginPath(); ctx.ellipse(cx, yb - fh, rx, ry, 0, 0, Math.PI); ctx.stroke();
+    ctx.lineWidth = 1.2; ctx.strokeStyle = TIP; ctx.beginPath(); ctx.ellipse(cx, yb - rowH, rx, ry, 0, 0, Math.PI); ctx.stroke();
+  }
+  ctx.lineWidth = .8; ctx.strokeStyle = 'rgba(80,55,30,.28)';
+  for (let k = 1; k < 7; k++) {
+    const a = Math.PI * k / 7, x = cx + rx * Math.cos(a), dy = ry * Math.sin(a);
+    line(ctx, x, cy + dy, x, cy - H + dy);
+  }
+  ctx.fillStyle = o.night ? '#ffd86b' : '#4a6984';
+  ctx.fillRect(cx - rx * .16, cy - H * .82, rx * .32, H * .2);
+  cone(ctx, cx, cy - H, rx * 1.35, ry * 1.35, tw * .34, 9);
+}
+function drawFlats(ctx, cx, cy, tw, o) {
+  const hw = tw * .3, hh = hw / 2, H = tw * .78;
+  const L = [cx - hw, cy], F = [cx, cy + hh], R = [cx + hw, cy], B = [cx, cy - hh];
+  shadow(ctx, cx, cy, hw * 1.25);
+  lyingWall(ctx, L, F, H, 7, true, o.night, 1);
+  lyingWall(ctx, F, R, H, 7, false, o.night, 2);
+  const d1 = lp(F, R, .4), d2 = lp(F, R, .62);
+  poly(ctx, [d1, d2, up(d2, H / 7 * .85), up(d1, H / 7 * .85)], '#5a3a22');
+  poly(ctx, [up(L, H), up(F, H), up(R, H), up(B, H)], '#ece4d2', 'rgba(70,45,25,.35)');
+  cig(ctx, cx + hw * .3, cy - H + hh * .05, cx + hw * .3, cy - H - tw * .1, Math.max(2, tw * .05));
+}
+function drawHall(ctx, cx, cy, tw, o) {
+  const hw = tw * .38, hh = hw / 2, S = tw * .07, WH = tw * .27;
+  shadow(ctx, cx, cy, hw * 1.2);
+  block(ctx, cx, cy, hw, hh, S, '#efe8d8', PAPER, PAPER_D);
+  ctx.lineWidth = .8; ctx.strokeStyle = 'rgba(80,55,30,.3)';
+  line(ctx, cx - hw, cy - S / 2, cx, cy + hh - S / 2); line(ctx, cx, cy + hh - S / 2, cx + hw, cy - S / 2);
+  const by = cy - S, iw = hw * .66, ih = iw / 2;
+  block(ctx, cx, by, iw, ih, WH, '#d9cfbb', '#cfc4ae', '#b5a990');
+  const iF = [cx, by + ih], iR = [cx + iw, by];
+  const d1 = lp(iF, iR, .3), d2 = lp(iF, iR, .7);
+  poly(ctx, [d1, d2, up(d2, WH * .7), up(d1, WH * .7)], o.night ? '#e0a54a' : '#5a3a22');
+  const cL = [cx - hw * .88, by], cF = [cx, by + hh * .88], cR = [cx + hw * .88, by], cw = Math.max(2, tw * .05);
+  const col = p => cig(ctx, p[0], p[1], p[0], p[1] - WH, cw);
+  [0, .34, .67].forEach(t => col(lp(cL, cF, t)));
+  [0, .34, .67].forEach(t => col(lp(cR, cF, t)));
+  col(cF);
+  block(ctx, cx, by - WH, hw * .95, hh * .95, tw * .05, '#f3ecdc', PAPER, PAPER_D);
+  const ry = by - WH - tw * .05;
+  pyramid(ctx, cx, ry, hw * .95, hh * .95, tw * .2);
+  const fy = ry - tw * .2;
+  cig(ctx, cx, fy, cx, fy - tw * .24, Math.max(1.5, tw * .03));
+  poly(ctx, [[cx + 1, fy - tw * .23], [cx + tw * .16, fy - tw * .19], [cx + 1, fy - tw * .15]], '#3ee6a8');
+}
+function drawTree(ctx, cx, cy, tw, o) {
+  shadow(ctx, cx, cy, tw * .14);
+  ctx.fillStyle = '#7a4f2c'; ctx.fillRect(cx - tw * .025, cy - tw * .2, tw * .05, tw * .2);
+  const s = tw * .14;
+  ellipse(ctx, cx - s * .6, cy - tw * .24, s * .8, s * .8, '#2c8a4c');
+  ellipse(ctx, cx + s * .6, cy - tw * .25, s * .8, s * .8, '#2c8a4c');
+  ellipse(ctx, cx, cy - tw * .33, s, s, '#3aaa5e');
+  ellipse(ctx, cx - s * .3, cy - tw * .37, s * .45, s * .4, '#62cc82');
+}
+function drawRuins(ctx, cx, cy, tw, t, smoking) {
+  const rx = tw * .27, ry = rx / 2;
+  const g = ctx.createRadialGradient(cx, cy - ry * .4, 0, cx, cy, rx);
+  g.addColorStop(0, '#77736d'); g.addColorStop(1, '#3c3936');
+  ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry * 1.15, 0, Math.PI, 0); ctx.ellipse(cx, cy, rx, ry * .6, 0, 0, Math.PI); ctx.fillStyle = g; ctx.fill();
+  const w = Math.max(2, tw * .05);
+  ctx.lineCap = 'round';
+  for (const [a, b, c, d] of [[-.15, -.1, .05, .02], [.08, -.18, .2, -.05], [-.2, .02, -.06, .08]]) {
+    ctx.lineWidth = w; ctx.strokeStyle = '#2a2522'; line(ctx, cx + a * tw, cy + b * tw, cx + c * tw, cy + d * tw);
+    ctx.strokeStyle = FILTER_D; line(ctx, cx + a * tw, cy + b * tw, cx + lerp(a, c, .4) * tw, cy + lerp(b, d, .4) * tw);
+  }
+  if (smoking) for (let k = 0; k < 4; k++) {
+    const ph = (t / 1800 + k / 4) % 1;
+    ctx.globalAlpha = (1 - ph) * .5;
+    ellipse(ctx, cx + Math.sin(ph * 6 + k) * tw * .07, cy - ry - ph * tw * .7, tw * (.04 + ph * .08), tw * (.04 + ph * .08), '#9a9590');
+    ctx.globalAlpha = 1;
+  }
+}
+function flame(ctx, x, y, w, h) {
+  const g = ctx.createLinearGradient(0, y, 0, y - h);
+  g.addColorStop(0, 'rgba(255,80,20,.95)'); g.addColorStop(.55, 'rgba(255,170,40,.75)'); g.addColorStop(1, 'rgba(255,235,140,0)');
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.moveTo(x - w, y); ctx.quadraticCurveTo(x - w, y - h * .55, x, y - h); ctx.quadraticCurveTo(x + w, y - h * .55, x + w, y); ctx.closePath(); ctx.fill();
+}
+function drawFlames(ctx, cx, cy, tw, hgt, t, prog) {
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const fade = prog < .7 ? 1 : 1 - (prog - .7) / .3;
+  for (let k = 0; k < 6; k++) {
+    const x = cx + (k / 5 - .5) * tw * .5;
+    const fh = tw * hgt * (.45 + .45 * Math.abs(Math.sin(t / 110 + k * 1.7))) * fade;
+    flame(ctx, x, cy + tw * .04 - Math.abs(k - 2.5) * tw * .015, tw * .08, fh);
+  }
+  ctx.restore();
+}
+function drawScaffold(ctx, cx, cy, tw, hgt) {
+  const hw = tw * .36, hh = hw / 2, H = tw * hgt;
+  const L = [cx - hw, cy], F = [cx, cy + hh], R = [cx + hw, cy];
+  ctx.save();
+  ctx.globalAlpha = .85; ctx.lineCap = 'round';
+  ctx.strokeStyle = '#d9a94f'; ctx.lineWidth = Math.max(1, tw * .022);
+  for (const p of [L, F, R]) line(ctx, p[0], p[1], p[0], p[1] - H);
+  for (let k = 1; k <= 3; k++) {
+    const y = H * k / 3;
+    line(ctx, ...up(L, y), ...up(F, y)); line(ctx, ...up(F, y), ...up(R, y));
+  }
+  ctx.strokeStyle = 'rgba(217,169,79,.6)';
+  line(ctx, ...L, ...up(F, H / 3)); line(ctx, ...F, ...up(R, H / 3));
+  ctx.restore();
+  poly(ctx, [[cx + hw * .55, cy + hh * .7], [cx + hw * .65, cy + hh * .7 - tw * .1], [cx + hw * .75, cy + hh * .7]], '#ff7a2f');
+}
+
+const TYPES = {
+  lamp:   { name: 'Lamp post', cost: 1,  pop: 0,  h: .55, recipe: '1 cigarette, filter up as the light', draw: drawLamp },
+  bench:  { name: 'Bench',     cost: 2,  pop: 0,  h: .3,  recipe: '2 cigarettes lying on little legs', draw: drawBench },
+  teepee: { name: 'Teepee',    cost: 5,  pop: 2,  h: .62, recipe: '5 cigarettes leaning together', draw: drawTeepee },
+  house:  { name: 'House',     cost: 7,  pop: 4,  h: .7,  recipe: 'A box of cigarettes with a cone roof', draw: drawHouse },
+  tower:  { name: 'Tower',     cost: 10, pop: 3,  h: .98, recipe: 'Two rings of cigarettes, cone on top', draw: drawTower },
+  flats:  { name: 'Flats',     cost: 14, pop: 12, h: .92, recipe: 'Cigarettes stacked into 7 floors', draw: drawFlats },
+  hall:   { name: 'Town hall', cost: 20, pop: 8,  h: .85, recipe: 'A whole pack: steps, pillars, roof', draw: drawHall },
+  tree:   { name: 'Tree',      cost: 0,  pop: 0,  h: .5,  recipe: 'Planted when you beat a craving', draw: drawTree }
+};
+const BUILD_ORDER = ['lamp', 'bench', 'teepee', 'house', 'tower', 'flats', 'hall'];
+
+// ---------- Town scene ----------
+const tcv = $('tcv'), tctx = tcv.getContext('2d');
+const T = { W: 0, H: 0, tw: 0, th: 0, x0: 0, y0: 0 };
+let selTile = null, people = [], burns = [], pops = [], lastT = 0, rafId = 0;
+
+function sizeTown() {
+  const W = tcv.parentElement.clientWidth || 340;
+  T.W = W; T.tw = W / (N + .5); T.th = T.tw / 2; T.x0 = W / 2; T.y0 = T.tw * 1.1;
+  T.H = Math.round(T.y0 + N * T.th + T.th * 1.1);
+  const dpr = window.devicePixelRatio || 1;
+  tcv.width = Math.round(W * dpr); tcv.height = Math.round(T.H * dpr);
+  tcv.style.height = T.H + 'px';
+  tctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+const toScreen = (u, v) => [T.x0 + (u - v) * T.tw / 2, T.y0 + (u + v) * T.th / 2];
+const tileCenter = (i, j) => toScreen(i + .5, j + .5);
+function skyMode() {
+  if (isBust(today())) return 'smoke';
+  const h = new Date().getHours();
+  return h >= 20 || h < 6 ? 'night' : h >= 18 ? 'dusk' : 'day';
+}
+function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
+
+function drawSky(ctx, t, mode) {
+  const { W, H } = T;
+  const skies = { day: ['#76c3f4', '#d2eeff'], dusk: ['#4b3f78', '#f08a6a', '#ffd29a'], night: ['#0a1630', '#24406f'], smoke: ['#2f2624', '#7b5244', '#c48a62'] };
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  skies[mode].forEach((c, i, a) => g.addColorStop(i / (a.length - 1), c));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  const r = rng(11);
+  if (mode === 'night') {
+    for (let i = 0; i < 60; i++) {
+      ctx.globalAlpha = .35 + .65 * Math.abs(Math.sin(t / 900 + i));
+      ctx.fillStyle = '#fff'; ctx.fillRect(r() * W, r() * H * .6, 1.5, 1.5);
+    }
+    ctx.globalAlpha = 1;
+    ellipse(ctx, W * .85, T.tw * .7, T.tw * .32, T.tw * .32, '#f5f1d8');
+    ellipse(ctx, W * .85 + T.tw * .14, T.tw * .62, T.tw * .27, T.tw * .27, '#0e1c3a');
+  } else if (mode === 'smoke') {
+    for (let i = 0; i < 7; i++) {
+      const x = ((t / 30000 + r()) % 1.4 - .2) * W, y = r() * H * .5;
+      ctx.globalAlpha = .25; ellipse(ctx, x, y, T.tw * (1 + r()), T.tw * .5, '#4a3b36'); ctx.globalAlpha = 1;
+    }
+  } else {
+    if (mode === 'day') ellipse(ctx, W * .86, T.tw * .7, T.tw * .34, T.tw * .34, '#ffe27a');
+    ctx.fillStyle = 'rgba(255,255,255,.85)';
+    for (let i = 0; i < 3; i++) {
+      const x = ((t / 60000 + r()) % 1.3 - .15) * W, y = T.tw * (.4 + r() * 1.4), s = T.tw * (.22 + r() * .15);
+      ctx.beginPath(); ctx.arc(x, y, s, 0, 7); ctx.arc(x + s, y - s * .4, s * 1.15, 0, 7); ctx.arc(x + s * 2.1, y, s * .9, 0, 7); ctx.fill();
+    }
+  }
+}
+function drawGround(ctx, mode) {
+  const { tw, th, x0, y0 } = T;
+  const Lc = [x0 - N * tw / 2, y0 + N * th / 2], Bc = [x0, y0 + N * th], Rc = [x0 + N * tw / 2, y0 + N * th / 2], D = th * .9;
+  poly(ctx, [Lc, Bc, up(Bc, -D), up(Lc, -D)], '#7a5232');
+  poly(ctx, [Bc, Rc, up(Rc, -D), up(Bc, -D)], '#5e3e25');
+  poly(ctx, [Lc, Bc, up(Bc, -D * .28), up(Lc, -D * .28)], '#4f9a3c');
+  poly(ctx, [Bc, Rc, up(Rc, -D * .28), up(Bc, -D * .28)], '#3f8231');
+  const dark = mode === 'night' || mode === 'smoke';
+  for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) {
+    const [cx, cy] = tileCenter(i, j);
+    const c = (i + j) % 2 ? (dark ? '#4c7d45' : '#86cf6e') : (dark ? '#467540' : '#7cc765');
+    poly(ctx, [[cx - tw / 2, cy], [cx, cy + th / 2], [cx + tw / 2, cy], [cx, cy - th / 2]], c, 'rgba(0,0,0,.05)');
+  }
+  if (selTile) {
+    const [cx, cy] = tileCenter(...selTile);
+    ctx.lineWidth = 2;
+    poly(ctx, [[cx - tw / 2, cy], [cx, cy + th / 2], [cx + tw / 2, cy], [cx, cy - th / 2]], 'rgba(255,210,90,.35)', '#ffd25a');
+  }
+}
+function drawBuildingAt(ctx, b, t, night) {
+  const [cx, cy] = tileCenter(b.x, b.y);
+  const ty = TYPES[b.type], tw = T.tw;
+  const burn = burns.find(f => f.ts === b.ts);
+  if (burn) {
+    const prog = (t - burn.t0) / 3800;
+    if (prog < 1) {
+      if (prog < .55) ty.draw(ctx, cx, cy, tw, { night });
+      else drawRuins(ctx, cx, cy, tw, t, true);
+      drawFlames(ctx, cx, cy, tw, ty.h, t, prog);
+      return;
+    }
+    burns.splice(burns.indexOf(burn), 1);
+  }
+  if (isBurned(b)) return drawRuins(ctx, cx, cy, tw, t, b.day === todayKey());
+  const pop = pops.find(f => f.ts === b.ts);
+  let k = 1;
+  if (pop) {
+    const p = Math.min(1, (t - pop.t0) / 500);
+    k = 1 - Math.pow(1 - p, 3) + Math.sin(p * Math.PI) * .18;
+    if (p >= 1) { pops.splice(pops.indexOf(pop), 1); k = 1; }
+  }
+  ctx.save();
+  if (k !== 1) { ctx.translate(cx, cy); ctx.scale(k, k); ctx.translate(-cx, -cy); }
+  ty.draw(ctx, cx, cy, tw, { night });
+  if (isUnderConstruction(b)) drawScaffold(ctx, cx, cy, tw, ty.h * .8);
+  ctx.restore();
+}
+
+// Little ash people. They wander between plots, and run for it (on fire) when the town burns.
+function openPlots() {
+  const taken = new Set(state.town.buildings.filter(b => b.type !== 'tree' && !isBurned(b)).map(b => b.x + ',' + b.y));
+  const out = [];
+  for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) if (!taken.has(i + ',' + j)) out.push([i, j]);
+  return out;
+}
+function newTarget(p) {
+  const o = openPlots();
+  const [i, j] = o.length ? o[Math.floor(Math.random() * o.length)] : [Math.floor(Math.random() * N), Math.floor(Math.random() * N)];
+  p.tu = i + .2 + Math.random() * .6; p.tv = j + .2 + Math.random() * .6;
+}
+function syncPeople(fire) {
+  const want = Math.min(36, population(), N * 4);
+  const staying = people.filter(p => !p.flee);
+  if (staying.length < want) {
+    const homes = state.town.buildings.filter(b => !isBurned(b) && TYPES[b.type].pop > 0);
+    for (let k = staying.length; k < want; k++) {
+      const h = homes[k % Math.max(1, homes.length)];
+      const p = { u: h ? h.x + .95 : Math.random() * N, v: h ? h.y + .95 : Math.random() * N, ph: Math.random() * 6, wait: Math.random() * 2, tone: Math.random() };
+      newTarget(p);
+      people.push(p);
+    }
+  } else if (staying.length > want) {
+    staying.slice(want).forEach(p => { p.flee = true; p.fire = !!fire; });
+  }
+}
+function updatePeople(dt) {
+  for (const p of people) {
+    if (p.flee) {
+      const du = p.u - N / 2 || .1, dv = p.v - N / 2 || .1, m = Math.hypot(du, dv);
+      const sp = (p.fire ? 2.8 : 1) * dt;
+      p.u += du / m * sp; p.v += dv / m * sp; p.moving = true;
+      if (p.u < 0 || p.v < 0 || p.u > N || p.v > N) p.fall = (p.fall || 0) + dt;
+      continue;
+    }
+    if (p.wait > 0) { p.wait -= dt; p.moving = false; continue; }
+    const du = p.tu - p.u, dv = p.tv - p.v, m = Math.hypot(du, dv);
+    if (m < .04) { p.wait = .6 + Math.random() * 2.5; newTarget(p); p.moving = false; continue; }
+    const sp = Math.min(.4 * dt, m);
+    p.u += du / m * sp; p.v += dv / m * sp; p.moving = true;
+  }
+  people = people.filter(p => !(p.fall > 1.1));
+}
+function drawPerson(ctx, p, t) {
+  let [x, y] = toScreen(p.u, p.v);
+  const s = T.tw / 60;
+  ctx.save();
+  if (p.fall) { y += p.fall * p.fall * 220; ctx.globalAlpha = Math.max(0, 1 - p.fall); }
+  const step = p.moving ? Math.sin(t / (p.fire ? 45 : 110) + p.ph) : 0;
+  const bob = Math.abs(step) * 1.2 * s;
+  if (!p.fall) ellipse(ctx, x, y, 3.2 * s, 1.3 * s, 'rgba(0,0,0,.2)');
+  ctx.lineCap = 'round'; ctx.lineWidth = 1.4 * s; ctx.strokeStyle = '#5b5752';
+  line(ctx, x - 1.2 * s, y - 3 * s, x - 1.2 * s + step * 1.4 * s, y - .3 * s);
+  line(ctx, x + 1.2 * s, y - 3 * s, x + 1.2 * s - step * 1.4 * s, y - .3 * s);
+  const by = y - 3 * s - bob, grey = Math.round(150 + p.tone * 40);
+  ctx.fillStyle = `rgb(${grey},${grey - 4},${grey - 10})`;
+  ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x - 2.7 * s, by - 6.5 * s, 5.4 * s, 6.5 * s, 2 * s) : ctx.rect(x - 2.7 * s, by - 6.5 * s, 5.4 * s, 6.5 * s); ctx.fill();
+  if (p.fire) {
+    line(ctx, x - 2.5 * s, by - 5.5 * s, x - 4 * s, by - 9.5 * s + step * s);
+    line(ctx, x + 2.5 * s, by - 5.5 * s, x + 4 * s, by - 9.5 * s - step * s);
+  }
+  const hy = by - 9 * s;
+  ellipse(ctx, x, hy, 3 * s, 3 * s, `rgb(${grey + 25},${grey + 21},${grey + 15})`);
+  const er = p.fire ? .7 * s : .45 * s;
+  ellipse(ctx, x - 1.1 * s, hy - .2 * s, er, er, '#222');
+  ellipse(ctx, x + 1.1 * s, hy - .2 * s, er, er, '#222');
+  if (p.fire) {
+    ellipse(ctx, x, hy + 1.5 * s, .6 * s, .8 * s, '#222');
+    ctx.globalCompositeOperation = 'lighter';
+    flame(ctx, x, hy - 2.2 * s, 2.4 * s, (6 + 2 * Math.sin(t / 60 + p.ph)) * s);
+  }
+  ctx.restore();
+}
+
+function drawTown(t) {
+  if (!T.W) return;
+  const ctx = tctx, mode = skyMode(), night = mode === 'night';
+  drawSky(ctx, t, mode);
+  drawGround(ctx, mode);
+  const items = state.town.buildings.map(b => ({ d: b.x + b.y + 1, b }));
+  for (const p of people) items.push({ d: p.u + p.v, p });
+  items.sort((a, b) => a.d - b.d);
+  for (const it of items) it.b ? drawBuildingAt(ctx, it.b, t, night) : drawPerson(ctx, it.p, t);
+}
+function frame(t) {
+  rafId = requestAnimationFrame(frame);
+  if (t - lastT < 33) return;
+  const dt = Math.min(.1, (t - lastT) / 1000);
+  lastT = t;
+  updatePeople(dt);
+  drawTown(t);
+}
+function startTown() { cancelAnimationFrame(rafId); rafId = requestAnimationFrame(frame); }
+function stopTown() { cancelAnimationFrame(rafId); }
+
+tcv.addEventListener('click', e => {
+  const r = tcv.getBoundingClientRect();
+  const px = e.clientX - r.left, py = e.clientY - r.top;
+  const hits = state.town.buildings.filter(b => {
+    const [cx, cy] = tileCenter(b.x, b.y);
+    const h = (isBurned(b) ? .25 : TYPES[b.type].h) * T.tw;
+    return px > cx - T.tw * .34 && px < cx + T.tw * .34 && py > cy - h && py < cy + T.th * .45;
+  }).sort((a, b) => (b.x + b.y) - (a.x + a.y));
+  if (hits.length) return openInfo(hits[0]);
+  const a = (px - T.x0) / (T.tw / 2), b = (py - T.y0) / (T.th / 2);
+  const i = Math.floor((a + b) / 2), j = Math.floor((b - a) / 2);
+  if (i >= 0 && j >= 0 && i < N && j < N) openBuild(i, j);
+});
+addEventListener('resize', () => { sizeTown(); });
+
+function drawPreview(canvas, type) {
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height, tw = W * .52, cx = W / 2, cy = H * .8;
+  ctx.clearRect(0, 0, W, H);
+  poly(ctx, [[cx - tw / 2, cy], [cx, cy + tw / 4], [cx + tw / 2, cy], [cx, cy - tw / 4]], '#86cf6e');
+  TYPES[type].draw(ctx, cx, cy, tw, { night: false });
+}
+
+function openBuild(i, j) {
+  const d = today();
+  if (isBust(d)) return toast(`🔥 Builders have gone home for today. Fresh start tomorrow with ${committedOf(d)} new 🚬.`, 'bad');
+  selTile = [i, j];
+  const ex = tileAt(i, j), w = wallet();
+  $('buildText').innerHTML = `You've got <b>${w} 🚬</b> to build with.` +
+    (ex && ex.type === 'tree' ? ' Building here replaces the tree 🌳.' : ex ? ' Building here clears the ash.' : '');
+  $('types').innerHTML = BUILD_ORDER.map(k => {
+    const t = TYPES[k], ok = t.cost <= w;
+    return `<button class="type" data-t="${k}" ${ok ? '' : 'disabled'}><canvas width="240" height="170" data-prev="${k}"></canvas>` +
+      `<span class="n">${t.name}</span><span class="r">${t.recipe}</span>` +
+      `<span class="c">🚬 ${t.cost}${t.pop ? ` · 👥 ${t.pop}` : ''}${ok ? '' : ` · need ${t.cost - w} more`}</span></button>`;
+  }).join('');
+  document.querySelectorAll('#types canvas').forEach(c => drawPreview(c, c.dataset.prev));
+  openModal('buildModal');
+}
+$('types').onclick = e => {
+  const btn = e.target.closest('button[data-t]');
+  if (!btn || btn.disabled || !selTile) return;
+  const [i, j] = selTile;
+  const ex = tileAt(i, j);
+  if (ex) state.town.buildings.splice(state.town.buildings.indexOf(ex), 1);
+  const b = { type: btn.dataset.t, x: i, y: j, day: todayKey(), ts: Date.now() };
+  state.town.buildings.push(b);
+  save();
+  pops.push({ ts: b.ts, t0: performance.now() });
+  closeModal('buildModal');
+  render();
+  if (navigator.vibrate) navigator.vibrate(15);
+  toast(`🏗️ ${TYPES[b.type].name} going up! Stay at ${today().limit} or under till midnight and it's finished for good.`, 'good');
+};
+let infoB = null;
+function openInfo(b) {
+  if (b.type === 'tree' || isBurned(b)) return openBuild(b.x, b.y);
+  infoB = b; selTile = [b.x, b.y];
+  const t = TYPES[b.type];
+  drawPreview($('infoPrev'), b.type);
+  $('infoTitle').textContent = t.name;
+  $('infoText').innerHTML = (isUnderConstruction(b)
+    ? `🏗️ <b>Under construction.</b> Stay at ${today().limit} or under till midnight and it's finished for good. Go over and it burns.`
+    : `✅ <b>Finished</b> on ${fmtDay(b.day)}.`) +
+    `<br>Made from ${t.cost} cigarette${t.cost > 1 ? 's' : ''} you didn't smoke.${t.pop ? ` Home to ${t.pop} ash people.` : ''}`;
+  $('demolish').textContent = `🧹 Take it down (get ${t.cost} 🚬 back)`;
+  openModal('infoModal');
+}
+$('demolish').onclick = () => {
+  if (!infoB) return;
+  state.town.buildings.splice(state.town.buildings.indexOf(infoB), 1);
+  save();
+  closeModal('infoModal');
+  render();
+  toast(`🧹 Taken down. ${TYPES[infoB.type].cost} 🚬 back to build with.`);
+};
+
+// ---------- Today / progress ----------
+const TIPS_HOW = d => [
+  `You used to smoke <b>${baselineOf(d)}</b> a day. Your limit is <b>${d.limit}</b>. So every morning you get <b>${committedOf(d)} 🚬</b> to build with.`,
+  `Tap a plot to build. New buildings stay 🏗️ under construction until midnight.`,
+  `Smoke more than <b>${d.limit}</b> and everything built today burns 🔥 — and the ash people run for it.`,
+  `Finish under ${d.limit}? Every one you didn't smoke is a bonus 🚬 tomorrow.`,
+  `Beat a craving and you plant a tree 🌳. Trees never burn.`
+];
+
 function stats() {
   const tk = todayKey();
   const keys = Object.keys(state.days).sort();
-  let xp = 0, saved = 0, resisted = 0, smokeFree = 0, underDays = 0, halfDays = 0, gameBest = 0;
+  let saved = 0, resisted = 0, smokeFree = 0, safeDays = 0, gameBest = 0, best = 0, run = 0, prev = null;
   for (const k of keys) {
-    const d = state.days[k];
-    const n = d.smoked.length;
-    xp += d.resisted * 5 + d.game;
-    resisted += d.resisted;
+    const d = state.days[k], n = d.smoked.length;
     saved += Math.max(0, baselineOf(d) - n);
+    resisted += d.resisted;
     gameBest = Math.max(gameBest, d.gameBest || 0);
     if (k < tk) {
-      xp += potFor(d);
-      if (n <= d.limit) underDays++;
+      const ok = !isBust(d);
+      if (ok) safeDays++;
       if (n === 0) smokeFree++;
-      if (n <= Math.ceil(d.limit / 2)) halfDays++;
+      run = ok ? (prev && shiftKey(prev, 1) === k ? run + 1 : 1) : 0;
+      best = Math.max(best, run);
+      prev = k;
     }
   }
   let streak = 0;
-  for (let k = shiftKey(tk, -1); state.days[k] && state.days[k].smoked.length <= state.days[k].limit; k = shiftKey(k, -1)) streak++;
-  return { xp, saved, resisted, smokeFree, underDays, halfDays, gameBest, streak, bricks: state.build.pieces.length, days: keys.length };
+  for (let k = shiftKey(tk, -1); state.days[k] && !isBust(state.days[k]); k = shiftKey(k, -1)) streak++;
+  const standing = state.town.buildings.filter(b => !isBurned(b));
+  return {
+    saved, resisted, smokeFree, safeDays, gameBest, streak, best, days: keys.length,
+    pop: population(), houses: standing.filter(b => b.type === 'house').length, halls: standing.filter(b => b.type === 'hall').length
+  };
 }
-function bestGap() {
-  let best = 0;
-  for (const d of Object.values(state.days)) {
-    const s = [...d.smoked].sort((a, b) => a - b);
-    for (let i = 1; i < s.length; i++) best = Math.max(best, s[i] - s[i - 1]);
-  }
-  return best;
-}
-
-const TITLES = ['Spark', 'Smoulder Fighter', 'Ash Dodger', 'Butt Kicker', 'Filter Breaker', 'Lung Guardian',
-  'Smoke Slayer', 'Fresh Air Hero', 'Craving Crusher', 'Clean Lungs Legend', 'Untouchable'];
-const levelOf = xp => Math.floor(Math.sqrt(xp / 100)) + 1;
-const xpFor = lvl => 100 * (lvl - 1) * (lvl - 1);
 
 const BADGES = [
   { id: 'start', e: '🌱', name: 'Day one', test: s => s.days >= 1 },
-  { id: 'under1', e: '✅', name: 'Under limit', test: s => s.underDays >= 1 },
-  { id: 'streak3', e: '🔥', name: '3-day streak', test: s => s.streak >= 3 },
-  { id: 'streak7', e: '🏆', name: '7-day streak', test: s => s.streak >= 7 },
-  { id: 'streak30', e: '👑', name: '30-day streak', test: s => s.streak >= 30 },
-  { id: 'crave10', e: '💪', name: '10 cravings', test: s => s.resisted >= 10 },
-  { id: 'crave50', e: '🦾', name: '50 cravings', test: s => s.resisted >= 50 },
-  { id: 'half', e: '✂️', name: 'Half-pack day', test: s => s.halfDays >= 1 },
+  { id: 'safe1', e: '✅', name: 'First safe day', test: s => s.safeDays >= 1 },
+  { id: 'streak3', e: '🔥', name: '3 days in a row', test: s => s.streak >= 3 },
+  { id: 'streak7', e: '🏆', name: '7 days in a row', test: s => s.streak >= 7 },
+  { id: 'streak30', e: '👑', name: '30 days in a row', test: s => s.streak >= 30 },
+  { id: 'house', e: '🏠', name: 'First house', test: s => s.houses >= 1 },
+  { id: 'hall', e: '🏛️', name: 'Town hall', test: s => s.halls >= 1 },
+  { id: 'pop50', e: '👥', name: '50 ash people', test: s => s.pop >= 50 },
+  { id: 'trees10', e: '🌳', name: '10 trees', test: s => s.resisted >= 10 },
   { id: 'free', e: '🕊️', name: 'Smoke-free day', test: s => s.smokeFree >= 1 },
   { id: 'cash50', e: '💰', name: 'Saved 50', test: s => s.saved * perCig() >= 50 },
-  { id: 'cash200', e: '🤑', name: 'Saved 200', test: s => s.saved * perCig() >= 200 },
-  { id: 'arcade', e: '🎮', name: 'Score 30+', test: s => s.gameBest >= 30 },
-  { id: 'brick1', e: '🧱', name: 'First brick', test: s => s.bricks >= 1 },
-  { id: 'brick20', e: '🏗️', name: 'A pack built', test: s => s.bricks >= 20 },
-  { id: 'brick60', e: '🏰', name: '60 bricks', test: s => s.bricks >= 60 }
+  { id: 'arcade', e: '🎮', name: 'Score 30+', test: s => s.gameBest >= 30 }
 ];
 
-const TIPS = [
-  'A craving is a wave: it peaks and passes in about <span class="q">3–5 minutes</span>. Outlast it.',
-  'Each one you skip today saves you <span class="q">{price}</span> and keeps <span class="q">10 XP</span> in your pot.',
-  'Drink a glass of cold water slowly. It gives your hands and mouth something to do.',
-  'Change the routine: if you always smoke with coffee, switch hands, rooms or drinks today.',
-  'Delay, don\'t deny: tell yourself "not for another 30 minutes". Then do it again.',
-  'Go for a 5-minute walk. Even a short burst of movement shrinks cravings.',
-  'Chew gum, munch carrot sticks, or brush your teeth — fresh mouth, fewer cravings.',
-  'Text someone or tell a mate you\'re cutting down. Saying it out loud makes it stick.',
-  'Your circulation and lung function start improving within weeks of smoking less.',
-  'Every cigarette you don\'t smoke is a win — it all counts, even on a tough day.'
-];
-
-// ---------- Cigarette builder ----------
-// Every cigarette under your old pack-a-day is a brick. Today's count is live, so smoking one
-// after they're all built knocks your newest brick off the top (and it goes up in smoke).
-const COLS = 12, ROWS = 16, CM_PER_CIG = 8.4;
-const SHAPES = { long: { w: 4, h: 1 }, stand: { w: 1, h: 4 }, half: { w: 2, h: 1 } };
-const COLOURS = {
-  classic: '#f3efe6', red: '#e3342f', yellow: '#f7c325', blue: '#2a72e0',
-  green: '#23a35a', pink: '#f06bb0', black: '#2d2d33', gold: '#d9a73a'
-};
-const THEMES = { day: '☀️ Day', sunset: '🌇 Sunset', night: '🌙 Night', space: '🪐 Space' };
-const baselineOf = d => d.baseline ?? state.settings.baseline;
-const bricksEarned = () => Object.values(state.days).reduce((a, d) => a + Math.max(0, baselineOf(d) - d.smoked.length), 0);
-const bricks = () => bricksEarned() - state.build.pieces.length;
-const newestPiece = () => state.build.pieces.reduce((a, p) => (!a || p.ts > a.ts ? p : a), null);
-
-function occupancy() {
-  const g = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
-  for (const p of state.build.pieces)
-    for (let dy = 0; dy < p.h; dy++) for (let dx = 0; dx < p.w; dx++) g[p.y + dy][p.x + dx] = p;
-  return g;
-}
-function fits(g, x, y, w, h) {
-  if (x < 0 || x + w > COLS || y < 0 || y + h > ROWS) return false;
-  for (let dy = 0; dy < h; dy++) for (let dx = 0; dx < w; dx++) if (g[y + dy][x + dx]) return false;
-  return true;
-}
-// Drop from the top like a falling brick; returns the resting row or -1 if the column is full.
-function dropY(g, x, w, h) {
-  let y = ROWS - h;
-  if (!fits(g, x, y, w, h)) return -1;
-  while (y > 0 && fits(g, x, y - 1, w, h)) y--;
-  return y;
-}
-function isClear(p, g) {
-  const top = p.y + p.h;
-  if (top >= ROWS) return true;
-  for (let dx = 0; dx < p.w; dx++) if (g[top][p.x + dx]) return false;
-  return true;
-}
-
-// Knock the newest bricks off until the build is paid for. Remembers them so an undo can put them back.
-function settleBuild(cigTs) {
-  const lost = [];
-  while (bricks() < 0 && state.build.pieces.length) {
-    const p = newestPiece();
-    state.build.pieces.splice(state.build.pieces.indexOf(p), 1);
-    lost.push(p);
-    burnFx(p);
-  }
-  if (lost.length) {
-    state.build.lastBurn = { cigTs: cigTs || null, lost };
-    save();
-  }
-  return lost;
-}
-
-const bcv = $('bcv'), bctx = bcv.getContext('2d');
-let cell = 28, groundY = 0, hover = null, fx = [], drawQueued = false;
-
-function sizeBuilder() {
-  const w = bcv.parentElement.clientWidth || 340;
-  cell = Math.floor(w / COLS);
-  groundY = ROWS * cell + cell * 0.25;
-  const h = groundY + cell * 0.75;
-  const dpr = window.devicePixelRatio || 1;
-  bcv.width = Math.round(w * dpr); bcv.height = Math.round(h * dpr);
-  bcv.style.height = h + 'px';
-  bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  bcv._w = w; bcv._h = h;
-}
-function shade(hex, amt) {
-  const n = parseInt(hex.slice(1), 16);
-  const f = c => Math.max(0, Math.min(255, Math.round(c + (amt > 0 ? (255 - c) * amt : c * amt))));
-  return '#' + [f(n >> 16), f((n >> 8) & 255), f(n & 255)].map(v => v.toString(16).padStart(2, '0')).join('');
-}
-function rr(ctx, x, y, w, h, r) {
-  ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
-}
-function rng(seed) { let t = seed >>> 0; return () => { t = (t * 1664525 + 1013904223) >>> 0; return t / 4294967296; }; }
-
-function drawSky(ctx, W, H) {
-  const theme = state.build.theme;
-  const sky = {
-    day: ['#5fb2f2', '#bfe6ff'], sunset: ['#3d2a6b', '#f0745a', '#ffc988'],
-    night: ['#081428', '#1d3766'], space: ['#04020c', '#1b0f38']
-  }[theme] || ['#5fb2f2', '#bfe6ff'];
-  const g = ctx.createLinearGradient(0, 0, 0, groundY);
-  sky.forEach((c, i) => g.addColorStop(i / (sky.length - 1), c));
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  const r = rng(7);
-  if (theme === 'night' || theme === 'space') {
-    for (let i = 0; i < (theme === 'space' ? 90 : 50); i++) {
-      ctx.globalAlpha = .3 + r() * .7; ctx.fillStyle = '#fff';
-      ctx.fillRect(r() * W, r() * groundY * .85, r() < .15 ? 2 : 1, r() < .15 ? 2 : 1);
-    }
-    ctx.globalAlpha = 1;
-  }
-  if (theme === 'day') {
-    const sx = W * .82, sy = cell * 2.2;
-    const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, cell * 3);
-    sg.addColorStop(0, 'rgba(255,240,170,.9)'); sg.addColorStop(1, 'rgba(255,240,170,0)');
-    ctx.fillStyle = sg; ctx.fillRect(sx - cell * 3, sy - cell * 3, cell * 6, cell * 6);
-    ctx.fillStyle = '#ffe680'; ctx.beginPath(); ctx.arc(sx, sy, cell * .9, 0, 7); ctx.fill();
-    ctx.fillStyle = 'rgba(255,255,255,.85)';
-    for (const [cx, cy, k] of [[.2, 2.6, 1], [.5, 4.4, .8], [.12, 6.5, .6]]) {
-      const x = W * cx, y = cell * cy, s = cell * k;
-      ctx.beginPath(); ctx.arc(x, y, s, 0, 7); ctx.arc(x + s, y - s * .4, s * 1.1, 0, 7); ctx.arc(x + s * 2.1, y, s * .9, 0, 7); ctx.fill();
-    }
-  } else if (theme === 'sunset') {
-    ctx.fillStyle = 'rgba(255,214,120,.95)'; ctx.beginPath(); ctx.arc(W * .3, groundY - cell * 1.2, cell * 2.2, 0, 7); ctx.fill();
-    ctx.fillStyle = 'rgba(60,30,80,.35)';
-    for (let i = 0; i < COLS; i++) { const h = cell * (1 + r() * 3); ctx.fillRect(i * cell, groundY - h, cell * .9, h); }
-  } else if (theme === 'night') {
-    ctx.fillStyle = '#f5f1d8'; ctx.beginPath(); ctx.arc(W * .8, cell * 2.2, cell * .95, 0, 7); ctx.fill();
-    ctx.fillStyle = sky[0]; ctx.beginPath(); ctx.arc(W * .8 + cell * .4, cell * 1.95, cell * .8, 0, 7); ctx.fill();
-  } else if (theme === 'space') {
-    const px = W * .78, py = cell * 3;
-    const pg = ctx.createLinearGradient(px - cell, py - cell, px + cell, py + cell);
-    pg.addColorStop(0, '#ffb86b'); pg.addColorStop(1, '#a3416b');
-    ctx.fillStyle = pg; ctx.beginPath(); ctx.arc(px, py, cell * 1.3, 0, 7); ctx.fill();
-    ctx.strokeStyle = 'rgba(255,220,180,.7)'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.ellipse(px, py, cell * 2.1, cell * .45, -.35, 0, 7); ctx.stroke();
-  }
-  // faint column guides
-  ctx.fillStyle = 'rgba(255,255,255,.05)';
-  for (let i = 1; i < COLS; i++) ctx.fillRect(i * cell, 0, 1, groundY);
-}
-function drawStud(ctx, cx, top, colour) {
-  const w = cell * .52, h = cell * .2;
-  ctx.fillStyle = shade(colour, -.25);
-  rr(ctx, cx - w / 2, top - h, w, h + 2, 3); ctx.fill();
-  ctx.fillStyle = shade(colour, .25);
-  ctx.beginPath(); ctx.ellipse(cx, top - h, w / 2, h * .45, 0, 0, 7); ctx.fill();
-}
-function drawBaseplate(ctx, W, H) {
-  const base = state.build.theme === 'space' ? '#6b6f80' : '#3aa655';
-  ctx.fillStyle = shade(base, -.2); ctx.fillRect(0, groundY, W, H - groundY);
-  ctx.fillStyle = base; ctx.fillRect(0, groundY, W, cell * .3);
-  for (let i = 0; i < COLS; i++) drawStud(ctx, i * cell + cell / 2, groundY, base);
-}
-// A cigarette brick: paper body, cork filter, gold band, tobacco end and Lego studs on top.
-function drawPiece(ctx, p, opts = {}) {
-  const colour = opts.tint || COLOURS[p.c] || COLOURS.classic;
-  const x = p.x * cell, w = p.w * cell, h = p.h * cell;
-  const y = groundY - (p.y + p.h) * cell - (opts.lift || 0);
-  const lying = p.w >= p.h;
-  ctx.save();
-  ctx.globalAlpha = opts.alpha ?? 1;
-  const tops = lying ? [...Array(p.w).keys()].map(i => x + i * cell + cell / 2) : [x + cell / 2];
-  for (const cx of tops) drawStud(ctx, cx, y + 1, colour);
-  const bx = x + 1, by = y + 1, bw = w - 2, bh = h - 2, rad = Math.min(bw, bh) * .32;
-  const g = lying ? ctx.createLinearGradient(0, by, 0, by + bh) : ctx.createLinearGradient(bx, 0, bx + bw, 0);
-  g.addColorStop(0, shade(colour, .35)); g.addColorStop(.45, colour); g.addColorStop(1, shade(colour, -.3));
-  rr(ctx, bx, by, bw, bh, rad); ctx.fillStyle = g; ctx.fill();
-  ctx.save(); ctx.clip();
-  const fl = (p.w === 2 || p.h === 2 ? .42 : .27) * (lying ? bw : bh);
-  const fx0 = lying ? bx : bx, fy0 = lying ? by : by + bh - fl;
-  const fw = lying ? fl : bw, fh = lying ? bh : fl;
-  const fg = lying ? ctx.createLinearGradient(0, by, 0, by + bh) : ctx.createLinearGradient(bx, 0, bx + bw, 0);
-  fg.addColorStop(0, '#f2b066'); fg.addColorStop(.5, '#d98a3d'); fg.addColorStop(1, '#a9601f');
-  ctx.fillStyle = fg; ctx.fillRect(fx0, fy0, fw, fh);
-  const r = rng(p.ts % 100000);
-  ctx.fillStyle = 'rgba(120,60,10,.35)';
-  for (let i = 0; i < 14; i++) ctx.fillRect(fx0 + r() * fw, fy0 + r() * fh, 1.5, 1.5);
-  ctx.fillStyle = '#e8c25a';
-  if (lying) ctx.fillRect(bx + fl, by, 2.5, bh); else ctx.fillRect(bx, fy0 - 2.5, bw, 2.5);
-  ctx.fillStyle = '#7a4a22';
-  if (lying) ctx.fillRect(bx + bw - 3, by, 3, bh); else ctx.fillRect(bx, by, bw, 3);
-  ctx.fillStyle = 'rgba(255,255,255,.35)';
-  if (lying) ctx.fillRect(bx + fl + 4, by + bh * .18, bw - fl - 10, Math.max(1.5, bh * .1));
-  else ctx.fillRect(bx + bw * .18, by + 5, Math.max(1.5, bw * .1), bh - fl - 10);
-  ctx.restore();
-  if (opts.outline) { rr(ctx, bx, by, bw, bh, rad); ctx.lineWidth = 2.5; ctx.strokeStyle = opts.outline; ctx.stroke(); }
-  ctx.restore();
-}
-function ghostPiece() {
-  if (!hover || state.build.mode !== 'build') return null;
-  const sh = SHAPES[state.build.shape];
-  const x = Math.max(0, Math.min(COLS - sh.w, hover.col - Math.floor((sh.w - 1) / 2)));
-  const y = dropY(occupancy(), x, sh.w, sh.h);
-  return y < 0 ? null : { x, y, w: sh.w, h: sh.h, c: state.build.colour, ts: 1 };
-}
-function pieceAt(col, row) {
-  return state.build.pieces.find(p => col >= p.x && col < p.x + p.w && row >= p.y && row < p.y + p.h + .35) || null;
-}
-function drawBuild(now = performance.now()) {
-  const W = bcv._w, H = bcv._h;
-  if (!W) return;
-  const ctx = bctx;
-  ctx.clearRect(0, 0, W, H);
-  drawSky(ctx, W, H);
-  drawBaseplate(ctx, W, H);
-  let animating = false;
-  const g = occupancy();
-  const target = state.build.mode === 'remove' && hover ? pieceAt(hover.col, hover.row) : null;
-  const sorted = [...state.build.pieces].sort((a, b) => a.y - b.y || a.x - b.x);
-  for (const p of sorted) {
-    let lift = 0;
-    if (p.anim) {
-      const t = Math.min(1, (now - p.anim) / 320);
-      const ease = 1 + 2.2 * Math.pow(t - 1, 3) + 1.2 * Math.pow(t - 1, 2);
-      lift = (1 - ease) * (ROWS - p.y) * cell * .7;
-      if (t < 1) animating = true; else delete p.anim;
-    }
-    drawPiece(ctx, p, { lift, outline: p === target ? (isClear(p, g) ? '#ff4d5e' : '#ffd25a') : null });
-  }
-  const gp = ghostPiece();
-  if (gp) drawPiece(ctx, gp, bricks() > 0 ? { alpha: .45 } : { alpha: .4, tint: '#ff4d5e' });
-  fx = fx.filter(f => now - f.t0 < 1200);
-  for (const f of fx) {
-    const t = (now - f.t0) / 1200;
-    if (t < .35) drawPiece(ctx, f.p, { alpha: 1 - t / .35, tint: '#ff7a2f' });
-    for (const s of f.parts) {
-      const k = t * 1.2;
-      ctx.globalAlpha = Math.max(0, 1 - t);
-      ctx.fillStyle = s.ember ? '#ffb347' : 'rgba(170,170,170,.8)';
-      ctx.beginPath(); ctx.arc(s.x + s.vx * k * 40, s.y - k * 80 * s.vy, s.r * (s.ember ? 1 : 1 + t * 2), 0, 7); ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-    animating = true;
-  }
-  if (animating) requestDraw();
-}
-function requestDraw() {
-  if (drawQueued) return;
-  drawQueued = true;
-  requestAnimationFrame(t => { drawQueued = false; drawBuild(t); });
-}
-function burnFx(p) {
-  const parts = [];
-  const cx = (p.x + p.w / 2) * cell, cy = groundY - (p.y + p.h / 2) * cell;
-  for (let i = 0; i < 22; i++) parts.push({ x: cx + (Math.random() - .5) * p.w * cell, y: cy, vx: Math.random() - .5, vy: .5 + Math.random(), r: 2 + Math.random() * 4, ember: i % 3 === 0 });
-  fx.push({ p: { ...p }, parts, t0: performance.now() });
-  requestDraw();
-}
-function cellAt(e) {
-  const r = bcv.getBoundingClientRect();
-  return { col: Math.floor((e.clientX - r.left) / cell), row: Math.floor((groundY - (e.clientY - r.top)) / cell) };
-}
-function nudge() { const el = $('bCount'); el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
-function placeOrRemove(c) {
-  const b = state.build;
-  if (b.mode === 'remove') {
-    const p = pieceAt(c.col, c.row);
-    if (!p) return;
-    if (!isClear(p, occupancy())) return toast('Take the bricks on top off first 🧱');
-    b.pieces.splice(b.pieces.indexOf(p), 1);
-    b.lastBurn = null;
-    save(); render();
-    return;
-  }
-  if (bricks() <= 0) {
-    nudge();
-    return toast(`No bricks left — every cigarette you don't smoke today (under ${baselineOf(today())}) adds one.`);
-  }
-  const p = ghostPiece();
-  if (!p) return toast('No room up there — try another spot.');
-  p.ts = Date.now(); p.anim = performance.now();
-  b.pieces.push(p);
-  b.lastBurn = null;
-  save(); render();
-  if (navigator.vibrate) navigator.vibrate(12);
-}
-bcv.addEventListener('pointermove', e => { hover = cellAt(e); requestDraw(); });
-bcv.addEventListener('pointerleave', () => { hover = null; requestDraw(); });
-bcv.addEventListener('pointerup', e => {
-  const c = cellAt(e);
-  hover = c;
-  placeOrRemove(c);
-  if (e.pointerType !== 'mouse') hover = null;
-  requestDraw();
-});
-$('shapeSeg').onclick = e => {
-  const btn = e.target.closest('button'); if (!btn) return;
-  state.build.shape = btn.dataset.shape; state.build.mode = 'build'; save(); renderBuild();
-};
-$('bRemove').onclick = () => { state.build.mode = state.build.mode === 'remove' ? 'build' : 'remove'; save(); renderBuild(); };
-$('swatches').innerHTML = Object.entries(COLOURS).map(([k, c]) => `<button class="sw" data-c="${k}" style="background:${c}" aria-label="${k}"></button>`).join('');
-$('swatches').onclick = e => {
-  const btn = e.target.closest('button'); if (!btn) return;
-  state.build.colour = btn.dataset.c; state.build.mode = 'build'; save(); renderBuild();
-};
-$('themes').innerHTML = Object.entries(THEMES).map(([k, v]) => `<button class="chip" data-t="${k}">${v}</button>`).join('');
-$('themes').onclick = e => {
-  const btn = e.target.closest('button'); if (!btn) return;
-  state.build.theme = btn.dataset.t; save(); renderBuild();
-};
-$('bUndo').onclick = () => {
-  const p = newestPiece(); if (!p) return;
-  state.build.pieces.splice(state.build.pieces.indexOf(p), 1);
-  state.build.lastBurn = null;
-  save(); render();
-};
-$('bClear').onclick = () => {
-  if (!state.build.pieces.length || !confirm('Take your whole build apart? You keep all the bricks.')) return;
-  state.build.pieces = []; state.build.lastBurn = null;
-  save(); render();
-};
-addEventListener('resize', () => { sizeBuilder(); requestDraw(); });
-
-function renderBuild() {
-  const b = state.build, d = today();
-  const n = d.smoked.length, base = baselineOf(d), br = bricks();
-  const todaySaved = Math.max(0, base - n);
-  $('bricks').textContent = br;
-  $('bCount').classList.toggle('empty', br <= 0);
-  $('bSub').innerHTML = `Pack a day (<b>${base}</b>) − <b>${n}</b> smoked today = <b>${todaySaved}</b> saved today.` +
-    (b.pieces.length && br <= 0 ? ` All built — smoke another and your top brick goes up in smoke 🔥` : '');
-  $('builder').style.setProperty('--paper', COLOURS[b.colour]);
-  $('bStage').classList.toggle('remove', b.mode === 'remove');
-  document.querySelectorAll('#shapeSeg button').forEach(x => x.classList.toggle('on', b.mode === 'build' && x.dataset.shape === b.shape));
-  $('bRemove').classList.toggle('danger-on', b.mode === 'remove');
-  $('bRemove').textContent = b.mode === 'remove' ? '🧹 Removing…' : '🧹 Remove';
-  document.querySelectorAll('#swatches .sw').forEach(x => x.classList.toggle('on', x.dataset.c === b.colour));
-  document.querySelectorAll('#themes .chip').forEach(x => x.classList.toggle('on', x.dataset.t === b.theme));
-  $('bHint').hidden = b.pieces.length > 0;
-  $('bHint').textContent = br > 0 ? `Tap to drop a cigarette brick 👇` : `Save a cigarette to get your first brick`;
-  $('bPlaced').textContent = b.pieces.length;
-  $('bHigh').textContent = b.pieces.reduce((m, p) => Math.max(m, p.y + p.h), 0);
-  const cm = b.pieces.length * CM_PER_CIG;
-  $('bLength').textContent = cm >= 100 ? (cm / 100).toFixed(1) + ' m' : Math.round(cm) + ' cm';
-  if (bcv._w !== (bcv.parentElement.clientWidth || 340)) sizeBuilder();
-  requestDraw();
-}
-
-// ---------- Render ----------
 function render() {
+  settleWallet();
+  const n0 = fitGrid();
+  if (n0 !== N) {
+    const grew = n0 > N && T.W;
+    N = n0;
+    sizeTown();
+    if (grew) toast('🏞️ Your land grew — more room to build!', 'gold');
+  }
   const d = today();
-  const n = d.smoked.length, L = d.limit;
-  const s = stats();
-  const lvl = levelOf(s.xp);
-  $('lvlNum').textContent = lvl;
-  $('lvlTitle').textContent = TITLES[Math.min(lvl - 1, TITLES.length - 1)];
-  const lo = xpFor(lvl), hi = xpFor(lvl + 1);
-  $('lvlSub').textContent = `${s.xp} XP · ${hi - s.xp} to level ${lvl + 1}`;
-  $('lvlBar').style.width = ((s.xp - lo) / (hi - lo) * 100) + '%';
+  const n = d.smoked.length, L = d.limit, bust = isBust(d);
 
   $('smokedNum').textContent = n;
   $('limitNum').textContent = L;
-  const left = L - n;
-  $('leftMsg').textContent = left > 0 ? `${left} left — make them last` : left === 0 ? 'Limit reached — hold the line 🛡️' : `${-left} over — tomorrow's a fresh start`;
-  $('leftMsg').style.color = left > 2 ? 'var(--mint)' : left >= 0 ? 'var(--gold)' : 'var(--red)';
-
-  const pack = $('pack');
-  const base = baselineOf(d);
-  const slots = Math.max(L, n, base);
-  pack.style.gridTemplateColumns = `repeat(${Math.min(10, slots)}, 1fr)`;
-  if (pack.children.length !== slots) {
-    pack.innerHTML = '';
-    for (let i = 0; i < slots; i++) {
-      const c = document.createElement('div');
-      c.className = 'cig';
-      c.innerHTML = '<div class="tip"></div><div class="paper"></div><div class="filter"></div>';
-      pack.appendChild(c);
-    }
-  }
-  [...pack.children].forEach((c, i) => {
-    c.classList.toggle('smoked', i < n);
-    c.classList.toggle('over', i >= L && i < n);
-    c.classList.toggle('saved', i >= L && i >= n && i < base);
-  });
-  $('packKey').innerHTML = base > L
-    ? `<span><i style="background:#f3efe6"></i>Today's ${L}</span><span><i style="background:#f1d98c;box-shadow:0 0 6px #ffd25a"></i>${base - L} you're not smoking 🧱</span>`
-    : '';
-
-  const last = d.smoked[d.smoked.length - 1];
-  const bg = bestGap();
-  if (last) {
-    const gap = Date.now() - last;
-    $('sinceLast').textContent = fmtDur(gap);
-    $('sinceLast').className = bg && gap > bg ? 'record' : '';
-    if (bg && gap > bg) $('sinceLast').textContent += ' 🎉 record!';
-  } else {
-    $('sinceLast').textContent = n === 0 ? 'none today 🙌' : '—';
-  }
-  $('bestGap').textContent = bg ? fmtDur(bg) : '—';
-
-  const pot = potFor(d);
-  $('pot').innerHTML = pot
-    ? `🏦 Today's pot: <b>${pot} XP</b> — banks at midnight if you stay at or under ${L}. Each cigarette burns 10.`
-    : `🏦 Today's pot is gone, but cravings beaten and games still earn XP. Keep going.`;
+  const pill = $('statusPill');
+  pill.className = 'pill' + (bust ? ' bust' : L - n <= 2 ? ' warn' : '');
+  pill.textContent = bust ? '🔥 Over the limit' : n === L ? 'At your limit' : `${L - n} to go`;
+  const segs = $('segs'), total = Math.max(L, n);
+  segs.innerHTML = Array.from({ length: total }, (_, i) => `<i class="${i < n ? (i >= L ? 'over' : 'on') : ''}"></i>`).join('');
+  const last = d.smoked[n - 1];
+  $('sinceLast').textContent = last ? `Last one ${fmtDur(Date.now() - last)} ago` : 'None yet today 🙌';
   $('undo').hidden = n === 0;
 
-  $('streak').textContent = s.streak + (n <= L ? 1 : 0);
+  const w = wallet(), pop = population(), building = state.town.buildings.filter(isUnderConstruction).length;
+  $('townName').textContent = state.town.name;
+  $('townRank').textContent = `${rankOf(pop)} · ${state.town.buildings.filter(b => b.type !== 'tree' && !isBurned(b)).length} buildings`;
+  $('walletChip').textContent = `🚬 ${w} to build`;
+  $('walletChip').classList.toggle('dim', w <= 0);
+  $('popChip').textContent = `👥 ${pop}`;
+  $('townMsg').innerHTML = bust
+    ? `🔥 You went over ${L} today, so today's buildings burned and today's ${committedOf(d)} 🚬 went up in smoke. Everything you finished before is safe. <b>Fresh start tomorrow.</b>`
+    : building
+      ? `🏗️ <b>${building} under construction.</b> Stay at ${L} or under till midnight and ${building > 1 ? "they're" : "it's"} finished for good.${w > 0 ? ` You've still got ${w} 🚬 — tap a plot.` : ''}`
+      : w > 0
+        ? `<b>Tap any plot to build.</b> You've got ${w} 🚬` + (w > committedOf(d) && committedOf(d)
+          ? ` — today's ${committedOf(d)} plus ${w - committedOf(d)} saved up.`
+          : w === committedOf(d) ? ` — the ${baselineOf(d)} you'd usually smoke, minus your ${L}.` : '.')
+        : `All spent! Tomorrow you get ${committedOf(d)} more 🚬. Beat a craving to plant a tree 🌳 meanwhile.`;
+  $('howList').innerHTML = TIPS_HOW(d).map(x => `<li>${x}</li>`).join('');
+
+  const s = stats();
+  $('streakNum').textContent = s.streak + (bust ? 0 : 1);
+  $('bestStreak').textContent = s.best ? `Best: ${Math.max(s.best, s.streak)} days` : 'Counting today if you stay under';
   $('money').textContent = money(s.saved * perCig());
   const mins = s.saved * MIN_PER_CIG;
   $('life').textContent = mins < 60 ? mins + 'm' : mins < 1440 ? (mins / 60).toFixed(1) + 'h' : (mins / 1440).toFixed(1) + 'd';
   $('cravings').textContent = s.resisted;
-
+  $('safeDays').textContent = s.safeDays;
   renderChart();
   renderBadges(s);
   renderDrop(s);
-  const lost = settleBuild();
-  if (lost.length) toast(`🔥 ${lost.length} brick${lost.length > 1 ? 's' : ''} went up in smoke — your build was short on saved cigarettes.`, 'bad');
-  renderBuild();
+  syncPeople();
 }
 
 function renderChart() {
@@ -915,43 +1153,61 @@ function renderChart() {
   let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Cigarettes per day, last 14 days">`;
   rows.forEach((r, i) => {
     const x = i * bw + 4;
-    const lab = Number(r.k.slice(8));
     if (r.d) {
-      const v = r.d.smoked.length;
-      const col = v <= r.d.limit ? 'var(--mint)' : 'var(--red)';
-      const top = y(v);
-      svg += `<rect x="${x}" y="${top}" width="${bw - 8}" height="${Math.max(2, H - pb - top)}" rx="4" fill="${col}" opacity="${r.k === tk ? 1 : .8}"/>`;
+      const v = r.d.smoked.length, top = y(v);
+      svg += `<rect x="${x}" y="${top}" width="${bw - 8}" height="${Math.max(2, H - pb - top)}" rx="4" fill="${isBust(r.d) ? 'var(--red)' : 'var(--mint)'}" opacity="${r.k === tk ? 1 : .8}"/>`;
       svg += `<text x="${x + (bw - 8) / 2}" y="${top - 3}" font-size="9" text-anchor="middle" fill="var(--muted)">${v}</text>`;
       svg += `<line x1="${x - 2}" x2="${x + bw - 6}" y1="${y(r.d.limit)}" y2="${y(r.d.limit)}" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="3 2"/>`;
     }
-    svg += `<text x="${x + (bw - 8) / 2}" y="${H - 6}" font-size="9" text-anchor="middle" fill="var(--muted)">${lab}</text>`;
+    svg += `<text x="${x + (bw - 8) / 2}" y="${H - 6}" font-size="9" text-anchor="middle" fill="var(--muted)">${Number(r.k.slice(8))}</text>`;
   });
-  svg += `</svg><div style="font-size:12px;color:var(--muted);margin-top:6px">Dashed line = your limit that day</div>`;
-  $('chart').innerHTML = svg;
+  $('chart').innerHTML = svg + `</svg><div style="font-size:12px;color:var(--muted);margin-top:6px">Dashed line = your limit that day · red = went over</div>`;
 }
-
 function renderBadges(s) {
+  const fresh = state.badgesSeen === null, earned = [];
+  if (fresh) state.badgesSeen = [];
   $('badges').innerHTML = BADGES.map(b => {
     const got = b.test(s);
     if (got && !state.badgesSeen.includes(b.id)) {
       state.badgesSeen.push(b.id);
-      save();
-      setTimeout(() => toast(`🏅 Badge unlocked: ${b.e} ${b.name}!`, 'gold'), 400);
+      if (!fresh) earned.push(b);
     }
     return `<div class="badge ${got ? 'got' : ''}"><span class="e">${b.e}</span>${b.name}</div>`;
   }).join('');
+  if (earned.length) setTimeout(() => toast(earned.length === 1
+    ? `🏅 Badge unlocked: ${earned[0].e} ${earned[0].name}!`
+    : `🏅 ${earned.length} new badges: ${earned.map(b => b.e).join(' ')}`, 'gold'), 500);
+  save();
 }
-
 function renderDrop(s) {
   const L = state.settings.limit;
   const show = s.streak >= 7 && L > 0 && state.dropDismissed !== todayKey();
   $('dropBanner').hidden = !show;
-  if (show) $('dropText').innerHTML = `🎯 <b>${s.streak} days</b> at or under ${L}. You're stronger than this limit. Ready to drop to <b>${L - 1}</b>?`;
+  if (show) $('dropText').innerHTML = `🎯 <b>${s.streak} days in a row</b> at or under ${L}. Ready to drop to <b>${L - 1}</b>? You'd get <b>${committedOf(today()) + 1} 🚬</b> to build with every day.`;
 }
 
-let tipIdx = Math.floor(Math.random() * TIPS.length);
-function renderTip() {
-  $('tipCard').innerHTML = '💡 ' + TIPS[tipIdx % TIPS.length].replace('{price}', money(perCig()));
+function checkNewDay() {
+  const tk = todayKey();
+  if (!state.lastSeen) { state.lastSeen = tk; save(); return; }
+  if (state.lastSeen === tk) return;
+  const prevKey = state.lastSeen, prev = state.days[prevKey];
+  state.lastSeen = tk;
+  save();
+  const d = today();
+  if (!prev) return;
+  const built = state.town.buildings.filter(b => b.day === prevKey && b.type !== 'tree').length;
+  if (isBust(prev)) {
+    $('morningTitle').textContent = '🌅 New day, fresh start';
+    $('morningText').innerHTML = `Yesterday went over — it happens. The ash has settled.<br>Today you've got <b>${committedOf(d)} new 🚬</b> to build with. Stay at ${d.limit} or under and it's all yours.`;
+  } else {
+    const bonus = bonusOf(prev);
+    $('morningTitle').textContent = '☀️ Morning! You made it';
+    $('morningText').innerHTML = `Yesterday: <b>${prev.smoked.length} of ${prev.limit}</b>.` +
+      (built ? ` Your ${built} building${built > 1 ? 's are' : ' is'} finished for good ✅.` : '') +
+      (bonus ? ` Plus <b>${bonus} bonus 🚬</b> for the ones you didn't need.` : '') +
+      `<br>Today: <b>${committedOf(d)} new 🚬</b> to build with.`;
+  }
+  openModal('morningModal');
 }
 
 // ---------- Actions ----------
@@ -960,60 +1216,87 @@ function toast(msg, kind = '') {
   t.className = 'toast ' + kind;
   t.innerHTML = msg;
   $('toasts').appendChild(t);
-  setTimeout(() => t.remove(), 3300);
-}
-const PRAISE = ['Nailed it!', 'That\'s the way!', 'Craving: 0, You: 1', 'Stronger every time.', 'Legend.', 'Your lungs say thanks.'];
-function beatCraving() {
-  today().resisted++;
-  save();
-  toast(`💪 +5 XP — ${PRAISE[Math.floor(Math.random() * PRAISE.length)]}`, 'good');
-  render();
-}
-function logCigarette() {
-  const d = today();
-  const before = potFor(d);
-  const ts = Date.now();
-  d.smoked.push(ts);
-  const lostBricks = settleBuild(ts);
-  save();
-  const n = d.smoked.length, L = d.limit;
-  const lost = before - potFor(d);
-  render();
-  if (lostBricks.length) {
-    setTimeout(() => toast(`🔥 That one knocked ${lostBricks.length > 1 ? lostBricks.length + ' bricks' : 'a brick'} off your build!`, 'bad'), 600);
-    $('builder').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-  const c = $('pack').children[n - 1];
-  if (c) { c.classList.add('burning'); setTimeout(() => c.classList.remove('burning'), 1000); }
-  if (n < L) toast(`🔥 −${lost} XP. ${L - n} left today — stretch the next gap.`, 'bad');
-  else if (n === L) toast(`⚠️ That's your last one for today. −${lost} XP. Hold the line and bank the rest!`, 'bad');
-  else toast(`It's been a tough one. Don't give up — every one you skip from here still counts.`, 'bad');
+  setTimeout(() => t.remove(), 3700);
 }
 function openModal(id) { $(id).classList.add('show'); }
-function closeModal(id) { $(id).classList.remove('show'); if (id === 'breatheModal') stopBreathe(); }
+function closeModal(id) {
+  $(id).classList.remove('show');
+  if (id === 'breatheModal') stopBreathe();
+  if (id === 'buildModal' || id === 'infoModal') selTile = null;
+}
 document.querySelectorAll('.modal').forEach(m => {
   m.addEventListener('click', e => {
     if (e.target === m || e.target.hasAttribute('data-close')) closeModal(m.id);
   });
 });
+function switchTab(name) {
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === name));
+  $('tab-town').hidden = name !== 'town';
+  $('tab-progress').hidden = name !== 'progress';
+  if (name === 'town') { sizeTown(); startTown(); } else stopTown();
+}
+document.querySelector('.tabs').onclick = e => { const b = e.target.closest('button'); if (b) switchTab(b.dataset.tab); };
+
+const PRAISE = ['Nailed it!', 'Craving: 0, You: 1', 'Stronger every time.', 'Legend.', 'Your lungs say thanks.'];
+function beatCraving() {
+  const d = today();
+  d.resisted++;
+  const empty = openPlots().filter(([i, j]) => !tileAt(i, j));
+  if (empty.length) {
+    const [i, j] = empty[Math.floor(Math.random() * empty.length)];
+    const b = { type: 'tree', x: i, y: j, day: todayKey(), ts: Date.now() };
+    state.town.buildings.push(b);
+    pops.push({ ts: b.ts, t0: performance.now() });
+  }
+  save();
+  toast(`💪 ${PRAISE[Math.floor(Math.random() * PRAISE.length)]} ${empty.length ? 'You planted a tree 🌳' : ''}`, 'good');
+  render();
+}
+function logCigarette() {
+  const d = today();
+  const wasBust = isBust(d);
+  d.smoked.push(Date.now());
+  save();
+  const n = d.smoked.length, L = d.limit;
+  if (!wasBust && isBust(d)) {
+    const t0 = performance.now();
+    const lost = state.town.buildings.filter(b => b.type !== 'tree' && b.day === todayKey());
+    lost.forEach(b => burns.push({ ts: b.ts, t0 }));
+    render();
+    syncPeople(true);
+    switchTab('town');
+    $('townCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    toast(lost.length
+      ? `🔥 That's ${n} — over your ${L}. Today's buildings are burning and the ash people are running for it!`
+      : `🔥 That's ${n} — over your ${L}. Today's ${committedOf(d)} 🚬 went up in smoke.`, 'bad');
+    return;
+  }
+  render();
+  if (wasBust) toast(`Tough day. Every one you skip from here still helps your lungs and wallet.`, 'bad');
+  else if (n === L) toast(`⚠️ That's ${L} — your last one today. One more and today's town burns.`, 'bad');
+  else toast(`Logged: ${n} of ${L}. ${L - n} to go — stretch the next gap.`);
+}
 
 $('beatCraving').onclick = beatCraving;
 $('playGame').onclick = () => startGame();
+$('openBreathe').onclick = () => startBreathe();
 $('smokeOne').onclick = () => {
   const d = today();
   const n = d.smoked.length, L = d.limit;
   const r = state.settings.reason.trim();
   $('reasonBox').hidden = !r;
   $('reasonBox').textContent = '❤️ ' + r;
-  const gap = d.smoked.length ? ` It's been ${fmtDur(Date.now() - d.smoked[d.smoked.length - 1])} since your last one.` : '';
+  const building = state.town.buildings.filter(isUnderConstruction).length;
+  const warn = $('smokeWarn');
+  warn.hidden = !(n === L);
+  if (n === L) warn.innerHTML = `🔥 <b>This would be number ${n + 1} — over your ${L}.</b> ` +
+    (building ? `Your ${building} building${building > 1 ? 's' : ''} under construction will burn down and ` : '') +
+    `today's ${committedOf(d)} 🚬 will be lost.`;
+  const gap = n ? ` Your last one was ${fmtDur(Date.now() - d.smoked[n - 1])} ago.` : '';
   $('smokeCost').innerHTML = n < L
-    ? `This burns <b>10 XP</b> from today's pot and costs ${money(perCig())}.${gap} Can you beat the craving instead?`
-    : `This takes you <b>over your limit</b> and burns today's bonus.${gap} The craving will pass — try one of these first.`;
-  if (n < baselineOf(d)) {
-    $('smokeCost').innerHTML += bricks() <= 0 && state.build.pieces.length
-      ? `<br><br>🔥 <b>Every brick is already built, so this one knocks your newest brick off and burns it.</b>`
-      : `<br><br>🧱 It also costs you a building brick (${bricks()} → ${bricks() - 1}).`;
-  }
+    ? `That'd be <b>${n + 1} of ${L}</b>.${gap} ${n + 1 === L ? "It's your last one before your town is at risk." : ''} Can you beat the craving instead?`
+    : n > L ? `You're already over today. Every one you skip from here still helps your lungs and your wallet.`
+      : `The craving will pass in a few minutes — try one of these first.`;
   openModal('smokeModal');
 };
 $('smokeGame').onclick = () => { closeModal('smokeModal'); startGame(); };
@@ -1022,35 +1305,28 @@ $('smokeConfirm').onclick = () => { closeModal('smokeModal'); logCigarette(); };
 $('undo').onclick = () => {
   const d = today();
   if (!d.smoked.length) return;
-  const ts = d.smoked.pop();
-  const lb = state.build.lastBurn;
-  let rebuilt = '';
-  if (lb && lb.cigTs === ts) {
-    for (const p of lb.lost) if (fits(occupancy(), p.x, p.y, p.w, p.h)) state.build.pieces.push(p);
-    state.build.lastBurn = null;
-    rebuilt = ' Your bricks are back.';
-  }
+  const wasBust = isBust(d);
+  d.smoked.pop();
   save();
-  toast('↩︎ Removed. XP restored.' + rebuilt);
   render();
+  toast(wasBust && !isBust(d) ? '↩︎ Removed. Phew — your buildings are back under construction.' : '↩︎ Removed.');
 };
-$('tipCard').onclick = () => { tipIdx++; renderTip(); };
 
 $('dropYes').onclick = () => {
   state.settings.limit = Math.max(0, state.settings.limit - 1);
   today().limit = state.settings.limit;
   state.dropDismissed = todayKey();
   save();
-  toast(`🎯 New limit: ${state.settings.limit}. You've got this!`, 'gold');
+  toast(`🎯 New limit: ${state.settings.limit}. That's ${committedOf(today())} 🚬 to build with every day!`, 'gold');
   render();
 };
 $('dropNo').onclick = () => { state.dropDismissed = todayKey(); save(); render(); };
 
-// Settings
 $('openSettings').onclick = () => {
   const s = state.settings;
   $('sLimit').value = s.limit; $('sBaseline').value = s.baseline; $('sPrice').value = s.packPrice;
   $('sPack').value = s.packSize; $('sCur').value = s.currency; $('sReason').value = s.reason;
+  $('sTown').value = state.town.name;
   openModal('settingsModal');
 };
 $('saveSettings').onclick = () => {
@@ -1062,19 +1338,22 @@ $('saveSettings').onclick = () => {
   s.packSize = Math.round(num('sPack', s.packSize, 1));
   s.currency = $('sCur').value.trim() || '£';
   s.reason = $('sReason').value;
+  state.town.name = $('sTown').value.trim() || DEFAULTS.town.name;
   today().limit = s.limit;
   today().baseline = s.baseline;
   save();
   closeModal('settingsModal');
-  renderTip();
+  const removed = settleWallet();
   render();
-  toast('Saved ✔︎');
+  toast(removed ? `Saved. ${removed} of today's builds came down to match your new numbers.` : 'Saved ✔︎');
 };
 $('resetAll').onclick = () => {
-  if (confirm('Reset ALL progress, badges and history? This can\'t be undone.')) {
+  if (confirm('Reset ALL progress, your town and history? This can\'t be undone.')) {
     const settings = state.settings;
-    state = JSON.parse(JSON.stringify(DEFAULTS));
+    state = clone(DEFAULTS);
     state.settings = settings;
+    state.lastSeen = todayKey();
+    people = [];
     save();
     closeModal('settingsModal');
     render();
@@ -1082,9 +1361,9 @@ $('resetAll').onclick = () => {
 };
 
 // ---------- Breathing ----------
-let breatheTimer = null, breatheEnd = 0, breathePhase = null;
+let breatheTimer = null, breathePhase = null;
 function startBreathe() {
-  breatheEnd = Date.now() + 5 * 60 * 1000;
+  const end = Date.now() + 5 * 60 * 1000;
   openModal('breatheModal');
   const circle = $('circle');
   let inhale = true;
@@ -1092,7 +1371,7 @@ function startBreathe() {
   phase();
   breathePhase = setInterval(phase, 4000);
   const tick = () => {
-    const left = Math.max(0, breatheEnd - Date.now());
+    const left = Math.max(0, end - Date.now());
     $('breatheTimer').textContent = Math.floor(left / 60000) + ':' + pad(Math.floor(left / 1000) % 60);
     if (!left) { stopBreathe(); $('breatheTimer').textContent = 'Done! 🎉'; }
   };
@@ -1155,7 +1434,6 @@ function loop(now) {
   const elapsed = now - G.t0;
   if (now >= G.nextSpawn) spawn(now);
   ctx.clearRect(0, 0, innerWidth, innerHeight);
-  // ground glow
   const grad = ctx.createLinearGradient(0, innerHeight - 80, 0, innerHeight);
   grad.addColorStop(0, 'rgba(255,77,94,0)'); grad.addColorStop(1, `rgba(255,77,94,${.15 + G.misses / G.maxMiss * .4})`);
   ctx.fillStyle = grad; ctx.fillRect(0, innerHeight - 80, innerWidth, 80);
@@ -1199,14 +1477,10 @@ function endGame(survived) {
   G.running = false;
   cancelAnimationFrame(G.raf);
   const d = today();
-  const award = Math.min(G.score, Math.max(0, GAME_XP_CAP - d.game));
-  d.game += award;
   d.gameBest = Math.max(d.gameBest || 0, G.score);
   save();
   $('gEndTitle').textContent = survived ? 'You outlasted it! 🏆' : 'Phew — close one!';
-  $('gEndText').innerHTML = `You snapped <b>${G.score}</b> cigarettes${award ? ` and earned <b>+${award} XP</b>` : ''}.` +
-    (award < G.score ? ` (Game XP is capped at ${GAME_XP_CAP} a day.)` : '') +
-    `<br>That was ${Math.round((performance.now() - G.t0) / 1000)} seconds the craving didn't get. How are you feeling now?`;
+  $('gEndText').innerHTML = `You snapped <b>${G.score}</b> cigarettes. That was ${Math.round((performance.now() - G.t0) / 1000)} seconds the craving didn't get.<br>How are you feeling now?`;
   $('gEnd').classList.add('show');
 }
 function closeGame() { G.running = false; cancelAnimationFrame(G.raf); $('game').classList.remove('show'); render(); }
@@ -1217,10 +1491,18 @@ $('gWon').onclick = () => { closeGame(); beatCraving(); };
 addEventListener('resize', () => { if (G.running) sizeCanvas(); });
 
 // ---------- Boot ----------
-renderTip();
+$('how').open = state.town.buildings.length === 0;
+checkNewDay();
 render();
-setInterval(render, 30000);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
+sizeTown();
+startTown();
+setInterval(() => { if (state.lastSeen !== todayKey()) checkNewDay(); render(); }, 30000);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) return stopTown();
+  checkNewDay();
+  render();
+  if (!$('tab-town').hidden) startTown();
+});
 </script>
 </body>
 </html>
