@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16130f">
+<title>Stub It Out</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16130f;
+    --card: #221d17;
+    --card2: #2c251d;
+    --line: #3a3127;
+    --text: #f6efe6;
+    --muted: #b3a593;
+    --ember: #ff7a2f;
+    --ember2: #ffb347;
+    --mint: #3ee6a8;
+    --red: #ff4d5e;
+    --gold: #ffd25a;
+    --radius: 18px;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  body {
+    font-family: Fredoka, system-ui, -apple-system, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    padding: 16px 16px 48px;
+    background:
+      radial-gradient(600px 300px at 50% -80px, rgba(255,122,47,.18), transparent 70%),
+      var(--bg);
+  }
+  .wrap { max-width: 520px; margin: 0 auto; }
+  button { font-family: inherit; cursor: pointer; border: 0; color: inherit; }
+  h1 { font-size: 28px; margin: 0; letter-spacing: .5px; }
+  h2 { font-size: 17px; margin: 0 0 12px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+  .icon-btn { background: var(--card); width: 44px; height: 44px; border-radius: 14px; font-size: 20px; flex: none; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-bottom: 14px; }
+
+  /* Level */
+  .level { display: flex; align-items: center; gap: 12px; }
+  .lvl-badge { width: 54px; height: 54px; border-radius: 16px; flex: none; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--ember), var(--gold)); color: #2a1606; font-weight: 700; font-size: 22px; }
+  .lvl-info { flex: 1; min-width: 0; }
+  .lvl-title { font-weight: 600; font-size: 18px; }
+  .lvl-sub { color: var(--muted); font-size: 13px; }
+  .bar { height: 10px; background: var(--card2); border-radius: 99px; overflow: hidden; margin-top: 6px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--ember), var(--gold)); border-radius: 99px; transition: width .6s; }
+
+  /* Pack */
+  .today-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+  .count { font-size: 46px; font-weight: 700; line-height: 1; }
+  .count small { font-size: 20px; color: var(--muted); font-weight: 500; }
+  .left-msg { font-size: 15px; color: var(--muted); }
+  .pack { margin: 14px 0 6px; padding: 14px 10px 10px; border-radius: 14px;
+    background: linear-gradient(180deg, #3b2a1b, #2a1e14); border: 2px solid #4d3826;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; min-height: 140px; }
+  .cig { width: 20px; height: 112px; position: relative; display: flex; flex-direction: column; transition: transform .3s; }
+  .cig .tip { height: 6px; border-radius: 3px 3px 0 0; background: #e9e1d6; }
+  .cig .paper { flex: 1; background: linear-gradient(90deg, #fff, #e8e2d9); }
+  .cig .filter { height: 30px; border-radius: 0 0 4px 4px;
+    background: repeating-linear-gradient(45deg, #e98c3b 0 3px, #d97a2b 3px 6px); }
+  .cig.smoked .tip, .cig.smoked .paper { opacity: 0; }
+  .cig.smoked { justify-content: flex-end; }
+  .cig.smoked .filter { filter: grayscale(.6) brightness(.7); }
+  .cig.smoked .filter::before { content: ""; position: absolute; left: 0; right: 0; bottom: 30px; height: 7px;
+    background: #555; border-radius: 3px 3px 0 0; }
+  .cig.over .filter { background: repeating-linear-gradient(45deg, var(--red) 0 3px, #c22f3d 3px 6px); filter: none; }
+  .cig.burning .tip { background: radial-gradient(circle at 50% 30%, #fff3b0, var(--ember) 60%, #b4301a); box-shadow: 0 0 12px var(--ember); }
+  .cig.burning { animation: burn 1s ease-in forwards; }
+  @keyframes burn { 0% { transform: translateY(0); } 40% { transform: translateY(-14px) rotate(-6deg); } 100% { transform: translateY(0); } }
+  .gap-line { display: flex; justify-content: space-between; gap: 8px; color: var(--muted); font-size: 14px; flex-wrap: wrap; }
+  .gap-line b { color: var(--text); font-weight: 600; }
+  .record { color: var(--gold) !important; }
+  .pot { margin-top: 10px; padding: 10px 12px; background: var(--card2); border-radius: 12px; font-size: 14px; color: var(--muted); }
+  .pot b { color: var(--gold); }
+
+  /* Actions */
+  .actions { display: grid; gap: 10px; }
+  .btn { padding: 16px; border-radius: 16px; font-size: 18px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform .1s; }
+  .btn:active { transform: scale(.97); }
+  .btn-smoke { background: var(--card2); border: 2px solid var(--line); color: var(--muted); }
+  .btn-win { background: linear-gradient(135deg, #1fbf87, var(--mint)); color: #04281b; }
+  .btn-game { background: linear-gradient(135deg, var(--ember), var(--ember2)); color: #2a1606; }
+  .btn-ghost { background: transparent; color: var(--muted); font-size: 15px; padding: 8px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat { background: var(--card2); border-radius: 14px; padding: 12px; }
+  .stat .v { font-size: 24px; font-weight: 700; }
+  .stat .l { font-size: 13px; color: var(--muted); }
+
+  .banner { background: linear-gradient(135deg, rgba(62,230,168,.18), rgba(255,210,90,.14)); border: 1px solid rgba(62,230,168,.4); }
+  .banner p { margin: 0 0 10px; }
+  .tip-card { font-size: 16px; line-height: 1.4; }
+  .tip-card .q { color: var(--gold); }
+
+  /* Chart */
+  .chart svg { width: 100%; height: auto; display: block; }
+
+  /* Badges */
+  .badges { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+  .badge { background: var(--card2); border-radius: 14px; padding: 10px 6px; text-align: center; font-size: 12px; color: var(--muted); }
+  .badge .e { font-size: 28px; display: block; filter: grayscale(1) opacity(.35); }
+  .badge.got { color: var(--text); border: 1px solid rgba(255,210,90,.4); }
+  .badge.got .e { filter: none; }
+
+  /* Modals */
+  .modal { position: fixed; inset: 0; background: rgba(8,6,4,.78); display: none; align-items: flex-end; justify-content: center; z-index: 20; padding: 16px; }
+  .modal.show { display: flex; }
+  .sheet { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 20px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; animation: up .25s ease-out; }
+  @keyframes up { from { transform: translateY(40px); opacity: 0; } }
+  .sheet h3 { margin: 0 0 8px; font-size: 22px; }
+  .sheet p { color: var(--muted); line-height: 1.45; margin: 0 0 14px; }
+  .reason { background: var(--card2); border-left: 4px solid var(--mint); padding: 12px; border-radius: 10px; margin-bottom: 14px; font-size: 17px; }
+  label { display: block; font-size: 14px; color: var(--muted); margin: 10px 0 4px; }
+  input, textarea { width: 100%; font-family: inherit; font-size: 16px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--card2); color: var(--text); }
+  .danger { color: var(--red); }
+
+  /* Breathe */
+  .breathe { display: grid; place-items: center; margin: 10px 0 16px; }
+  .circle { width: 160px; height: 160px; border-radius: 50%; display: grid; place-items: center; font-size: 18px; font-weight: 600;
+    background: radial-gradient(circle, rgba(62,230,168,.55), rgba(62,230,168,.08)); transition: transform 4s ease-in-out; }
+  .circle.in { transform: scale(1.25); }
+  .timer { font-size: 40px; font-weight: 700; text-align: center; margin-bottom: 10px; }
+
+  /* Game */
+  #game { position: fixed; inset: 0; background: #0f0c09; z-index: 30; display: none; touch-action: none; }
+  #game.show { display: block; }
+  #game canvas { width: 100%; height: 100%; display: block; }
+  .hud { position: absolute; top: 0; left: 0; right: 0; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; pointer-events: none; font-size: 18px; font-weight: 600; }
+  .meter { flex: 1; max-width: 160px; height: 12px; background: #2a231b; border-radius: 99px; overflow: hidden; }
+  .meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--ember), var(--red)); transition: width .2s; }
+  .game-end { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(8,6,4,.7); }
+  .game-end.show { display: flex; }
+  .quit { pointer-events: auto; background: rgba(255,255,255,.08); padding: 6px 12px; border-radius: 10px; font-size: 15px; }
+
+  /* Toasts */
+  #toasts { position: fixed; left: 0; right: 0; top: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 50; pointer-events: none; padding: 0 16px; }
+  .toast { background: var(--card2); border: 1px solid var(--line); padding: 12px 16px; border-radius: 14px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,.4); animation: toast 3.2s forwards; max-width: 480px; text-align: center; }
+  .toast.good { border-color: var(--mint); }
+  .toast.bad { border-color: var(--red); }
+  .toast.gold { border-color: var(--gold); }
+  @keyframes toast { 0% { opacity: 0; transform: translateY(-10px); } 10%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-10px); } }
+  .foot { text-align: center; color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>🚭 Stub It Out</h1>
+    <button class="icon-btn" id="openSettings" aria-label="Settings">⚙️</button>
+  </div>
+
+  <div class="card level">
+    <div class="lvl-badge" id="lvlNum">1</div>
+    <div class="lvl-info">
+      <div class="lvl-title" id="lvlTitle">Spark</div>
+      <div class="lvl-sub" id="lvlSub">0 XP</div>
+      <div class="bar"><i id="lvlBar" style="width:0"></i></div>
+    </div>
+  </div>
+
+  <div class="card banner" id="dropBanner" hidden>
+    <p id="dropText"></p>
+    <div class="row2">
+      <button class="btn btn-win" id="dropYes" style="font-size:16px">Level up 💪</button>
+      <button class="btn btn-smoke" id="dropNo" style="font-size:16px">Not yet</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="today-head">
+      <div class="count"><span id="smokedNum">0</span><small> / <span id="limitNum">11</span> today</small></div>
+      <div class="left-msg" id="leftMsg"></div>
+    </div>
+    <div class="pack" id="pack"></div>
+    <div class="gap-line">
+      <span>Since last: <b id="sinceLast">—</b></span>
+      <span id="bestGapWrap">Best gap: <b id="bestGap">—</b></span>
+    </div>
+    <div class="pot" id="pot"></div>
+  </div>
+
+  <div class="card actions">
+    <button class="btn btn-win" id="beatCraving">💪 I beat a craving <span style="opacity:.7">+5 XP</span></button>
+    <button class="btn btn-game" id="playGame">🎮 Craving Crusher</button>
+    <button class="btn btn-smoke" id="smokeOne">🚬 I'm having one…</button>
+    <button class="btn btn-ghost" id="undo" hidden>↩︎ Undo last cigarette</button>
+  </div>
+
+  <div class="card tip-card" id="tipCard"></div>
+
+  <div class="card">
+    <h2>Your wins</h2>
+    <div class="stats">
+      <div class="stat"><div class="v" id="streak">0</div><div class="l">🔥 days in a row at or under limit</div></div>
+      <div class="stat"><div class="v" id="money">£0</div><div class="l">💷 saved vs. before</div></div>
+      <div class="stat"><div class="v" id="life">0h</div><div class="l">❤️ life clawed back*</div></div>
+      <div class="stat"><div class="v" id="cravings">0</div><div class="l">💪 cravings beaten</div></div>
+    </div>
+  </div>
+
+  <div class="card chart">
+    <h2>Last 14 days</h2>
+    <div id="chart"></div>
+  </div>
+
+  <div class="card">
+    <h2>Badges</h2>
+    <div class="badges" id="badges"></div>
+  </div>
+
+  <p class="foot">
+    *Estimate: research from UCL (2024) suggests each cigarette costs around 20 minutes of life.<br>
+    Cravings usually peak and fade within 3–5 minutes — you only have to outlast them.<br>
+    Want extra backup? Free stop-smoking services and nicotine replacement can roughly double your chances.<br>
+    Your progress is saved on this device only.
+  </p>
+</div>
+
+<!-- "I'm having one" sheet -->
+<div class="modal" id="smokeModal">
+  <div class="sheet">
+    <h3>Hold up a sec ✋</h3>
+    <div class="reason" id="reasonBox" hidden></div>
+    <p id="smokeCost"></p>
+    <div class="actions">
+      <button class="btn btn-game" id="smokeGame">🎮 Crush the craving first</button>
+      <button class="btn btn-win" id="smokeBreathe">🌬️ Breathe for 5 minutes</button>
+      <button class="btn btn-smoke" id="smokeConfirm">🚬 Log it anyway</button>
+      <button class="btn btn-ghost" data-close>Never mind, I'm good</button>
+    </div>
+  </div>
+</div>
+
+<!-- Breathing sheet -->
+<div class="modal" id="breatheModal">
+  <div class="sheet">
+    <h3>Ride the wave 🌊</h3>
+    <p>Cravings rise, peak and fade. Breathe with the circle until the timer runs out.</p>
+    <div class="timer" id="breatheTimer">5:00</div>
+    <div class="breathe"><div class="circle" id="circle">Breathe in</div></div>
+    <div class="actions" id="breatheActions">
+      <button class="btn btn-win" id="breatheDone">💪 Craving's gone</button>
+      <button class="btn btn-ghost" data-close>Stop</button>
+    </div>
+  </div>
+</div>
+
+<!-- Settings sheet -->
+<div class="modal" id="settingsModal">
+  <div class="sheet">
+    <h3>Settings</h3>
+    <label for="sLimit">Daily limit</label>
+    <input id="sLimit" type="number" min="0" max="40" inputmode="numeric">
+    <label for="sBaseline">How many a day did you smoke before?</label>
+    <input id="sBaseline" type="number" min="0" max="80" inputmode="numeric">
+    <div class="row2">
+      <div><label for="sPrice">Price per pack</label><input id="sPrice" type="number" min="0" step="0.01" inputmode="decimal"></div>
+      <div><label for="sPack">Cigarettes per pack</label><input id="sPack" type="number" min="1" inputmode="numeric"></div>
+    </div>
+    <label for="sCur">Currency symbol</label>
+    <input id="sCur" maxlength="3">
+    <label for="sReason">Why are you cutting down? (shown when you go to smoke)</label>
+    <textarea id="sReason" rows="2" placeholder="e.g. To play football with my kids without getting out of breath"></textarea>
+    <div class="actions" style="margin-top:16px">
+      <button class="btn btn-win" id="saveSettings">Save</button>
+      <button class="btn btn-ghost" data-close>Cancel</button>
+      <button class="btn btn-ghost danger" id="resetAll">Reset all progress</button>
+    </div>
+  </div>
+</div>
+
+<!-- Game -->
+<div id="game">
+  <canvas id="cv"></canvas>
+  <div class="hud">
+    <span>💥 <span id="gScore">0</span></span>
+    <span id="gTime">45s</span>
+    <div class="meter" title="Craving meter"><i id="gMeter"></i></div>
+    <button class="quit" id="gQuit">✕</button>
+  </div>
+  <div class="game-end" id="gEnd">
+    <div class="sheet">
+      <h3 id="gEndTitle">Craving crushed!</h3>
+      <p id="gEndText"></p>
+      <div class="actions">
+        <button class="btn btn-win" id="gWon">💪 Craving's gone</button>
+        <button class="btn btn-game" id="gAgain">🔁 Play again</button>
+        <button class="btn btn-ghost" id="gClose">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toasts"></div>
+
+<script>
+const KEY = 'stubItOut.v1';
+const MIN_PER_CIG = 20;
+const GAME_XP_CAP = 60;
+const DEFAULTS = {
+  settings: { limit: 11, baseline: 20, packPrice: 15, packSize: 20, currency: '£', reason: '' },
+  days: {},
+  badgesSeen: [],
+  dropDismissed: ''
+};
+
+let state = load();
+
+function load() {
+  try {
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if (s && s.days) return { ...DEFAULTS, ...s, settings: { ...DEFAULTS.settings, ...s.settings } };
+  } catch (e) {}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2, '0');
+const keyOf = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const todayKey = () => keyOf(new Date());
+function shiftKey(k, delta) {
+  const [y, m, d] = k.split('-').map(Number);
+  return keyOf(new Date(y, m - 1, d + delta));
+}
+function today() {
+  const k = todayKey();
+  if (!state.days[k]) {
+    state.days[k] = { smoked: [], resisted: 0, game: 0, limit: state.settings.limit };
+    save();
+  }
+  return state.days[k];
+}
+const perCig = () => state.settings.packPrice / Math.max(1, state.settings.packSize);
+const money = v => state.settings.currency + (v >= 100 ? Math.round(v) : v.toFixed(2));
+function fmtDur(ms) {
+  const m = Math.floor(ms / 60000);
+  if (m < 60) return m + 'm';
+  const h = Math.floor(m / 60);
+  return h + 'h ' + pad(m % 60) + 'm';
+}
+
+// ---------- Scoring ----------
+// Completed days bank (unsmoked × 10) + 25 if at/under limit. Cravings and games bank instantly.
+function potFor(d) {
+  const n = d.smoked.length;
+  return n <= d.limit ? (d.limit - n) * 10 + 25 : 0;
+}
+function stats() {
+  const tk = todayKey();
+  const keys = Object.keys(state.days).sort();
+  let xp = 0, saved = 0, resisted = 0, smokeFree = 0, underDays = 0, halfDays = 0, gameBest = 0;
+  for (const k of keys) {
+    const d = state.days[k];
+    const n = d.smoked.length;
+    xp += d.resisted * 5 + d.game;
+    resisted += d.resisted;
+    saved += Math.max(0, state.settings.baseline - n);
+    gameBest = Math.max(gameBest, d.gameBest || 0);
+    if (k < tk) {
+      xp += potFor(d);
+      if (n <= d.limit) underDays++;
+      if (n === 0) smokeFree++;
+      if (n <= Math.ceil(d.limit / 2)) halfDays++;
+    }
+  }
+  let streak = 0;
+  for (let k = shiftKey(tk, -1); state.days[k] && state.days[k].smoked.length <= state.days[k].limit; k = shiftKey(k, -1)) streak++;
+  return { xp, saved, resisted, smokeFree, underDays, halfDays, gameBest, streak, days: keys.length };
+}
+function bestGap() {
+  let best = 0;
+  for (const d of Object.values(state.days)) {
+    const s = [...d.smoked].sort((a, b) => a - b);
+    for (let i = 1; i < s.length; i++) best = Math.max(best, s[i] - s[i - 1]);
+  }
+  return best;
+}
+
+const TITLES = ['Spark', 'Smoulder Fighter', 'Ash Dodger', 'Butt Kicker', 'Filter Breaker', 'Lung Guardian',
+  'Smoke Slayer', 'Fresh Air Hero', 'Craving Crusher', 'Clean Lungs Legend', 'Untouchable'];
+const levelOf = xp => Math.floor(Math.sqrt(xp / 100)) + 1;
+const xpFor = lvl => 100 * (lvl - 1) * (lvl - 1);
+
+const BADGES = [
+  { id: 'start', e: '🌱', name: 'Day one', test: s => s.days >= 1 },
+  { id: 'under1', e: '✅', name: 'Under limit', test: s => s.underDays >= 1 },
+  { id: 'streak3', e: '🔥', name: '3-day streak', test: s => s.streak >= 3 },
+  { id: 'streak7', e: '🏆', name: '7-day streak', test: s => s.streak >= 7 },
+  { id: 'streak30', e: '👑', name: '30-day streak', test: s => s.streak >= 30 },
+  { id: 'crave10', e: '💪', name: '10 cravings', test: s => s.resisted >= 10 },
+  { id: 'crave50', e: '🦾', name: '50 cravings', test: s => s.resisted >= 50 },
+  { id: 'half', e: '✂️', name: 'Half-pack day', test: s => s.halfDays >= 1 },
+  { id: 'free', e: '🕊️', name: 'Smoke-free day', test: s => s.smokeFree >= 1 },
+  { id: 'cash50', e: '💰', name: 'Saved 50', test: s => s.saved * perCig() >= 50 },
+  { id: 'cash200', e: '🤑', name: 'Saved 200', test: s => s.saved * perCig() >= 200 },
+  { id: 'arcade', e: '🎮', name: 'Score 30+', test: s => s.gameBest >= 30 }
+];
+
+const TIPS = [
+  'A craving is a wave: it peaks and passes in about <span class="q">3–5 minutes</span>. Outlast it.',
+  'Each one you skip today saves you <span class="q">{price}</span> and keeps <span class="q">10 XP</span> in your pot.',
+  'Drink a glass of cold water slowly. It gives your hands and mouth something to do.',
+  'Change the routine: if you always smoke with coffee, switch hands, rooms or drinks today.',
+  'Delay, don\'t deny: tell yourself "not for another 30 minutes". Then do it again.',
+  'Go for a 5-minute walk. Even a short burst of movement shrinks cravings.',
+  'Chew gum, munch carrot sticks, or brush your teeth — fresh mouth, fewer cravings.',
+  'Text someone or tell a mate you\'re cutting down. Saying it out loud makes it stick.',
+  'Your circulation and lung function start improving within weeks of smoking less.',
+  'Every cigarette you don\'t smoke is a win — it all counts, even on a tough day.'
+];
+
+// ---------- Render ----------
+function render() {
+  const d = today();
+  const n = d.smoked.length, L = d.limit;
+  const s = stats();
+  const lvl = levelOf(s.xp);
+  $('lvlNum').textContent = lvl;
+  $('lvlTitle').textContent = TITLES[Math.min(lvl - 1, TITLES.length - 1)];
+  const lo = xpFor(lvl), hi = xpFor(lvl + 1);
+  $('lvlSub').textContent = `${s.xp} XP · ${hi - s.xp} to level ${lvl + 1}`;
+  $('lvlBar').style.width = ((s.xp - lo) / (hi - lo) * 100) + '%';
+
+  $('smokedNum').textContent = n;
+  $('limitNum').textContent = L;
+  const left = L - n;
+  $('leftMsg').textContent = left > 0 ? `${left} left — make them last` : left === 0 ? 'Limit reached — hold the line 🛡️' : `${-left} over — tomorrow's a fresh start`;
+  $('leftMsg').style.color = left > 2 ? 'var(--mint)' : left >= 0 ? 'var(--gold)' : 'var(--red)';
+
+  const pack = $('pack');
+  const slots = Math.max(L, n);
+  if (pack.children.length !== slots) {
+    pack.innerHTML = '';
+    for (let i = 0; i < slots; i++) {
+      const c = document.createElement('div');
+      c.className = 'cig';
+      c.innerHTML = '<div class="tip"></div><div class="paper"></div><div class="filter"></div>';
+      pack.appendChild(c);
+    }
+  }
+  [...pack.children].forEach((c, i) => {
+    c.classList.toggle('smoked', i < n);
+    c.classList.toggle('over', i >= L && i < n);
+  });
+
+  const last = d.smoked[d.smoked.length - 1];
+  const bg = bestGap();
+  if (last) {
+    const gap = Date.now() - last;
+    $('sinceLast').textContent = fmtDur(gap);
+    $('sinceLast').className = bg && gap > bg ? 'record' : '';
+    if (bg && gap > bg) $('sinceLast').textContent += ' 🎉 record!';
+  } else {
+    $('sinceLast').textContent = n === 0 ? 'none today 🙌' : '—';
+  }
+  $('bestGap').textContent = bg ? fmtDur(bg) : '—';
+
+  const pot = potFor(d);
+  $('pot').innerHTML = pot
+    ? `🏦 Today's pot: <b>${pot} XP</b> — banks at midnight if you stay at or under ${L}. Each cigarette burns 10.`
+    : `🏦 Today's pot is gone, but cravings beaten and games still earn XP. Keep going.`;
+  $('undo').hidden = n === 0;
+
+  $('streak').textContent = s.streak + (n <= L ? 1 : 0);
+  $('money').textContent = money(s.saved * perCig());
+  const mins = s.saved * MIN_PER_CIG;
+  $('life').textContent = mins < 60 ? mins + 'm' : mins < 1440 ? (mins / 60).toFixed(1) + 'h' : (mins / 1440).toFixed(1) + 'd';
+  $('cravings').textContent = s.resisted;
+
+  renderChart();
+  renderBadges(s);
+  renderDrop(s);
+}
+
+function renderChart() {
+  const tk = todayKey();
+  const W = 340, H = 140, pb = 20, n = 14, bw = W / n;
+  let max = state.settings.limit;
+  const rows = [];
+  for (let i = n - 1; i >= 0; i--) {
+    const k = shiftKey(tk, -i), d = state.days[k];
+    rows.push({ k, d });
+    if (d) max = Math.max(max, d.smoked.length, d.limit);
+  }
+  max = Math.max(max, 1);
+  const y = v => H - pb - (v / max) * (H - pb - 10);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Cigarettes per day, last 14 days">`;
+  rows.forEach((r, i) => {
+    const x = i * bw + 4;
+    const lab = Number(r.k.slice(8));
+    if (r.d) {
+      const v = r.d.smoked.length;
+      const col = v <= r.d.limit ? 'var(--mint)' : 'var(--red)';
+      const top = y(v);
+      svg += `<rect x="${x}" y="${top}" width="${bw - 8}" height="${Math.max(2, H - pb - top)}" rx="4" fill="${col}" opacity="${r.k === tk ? 1 : .8}"/>`;
+      svg += `<text x="${x + (bw - 8) / 2}" y="${top - 3}" font-size="9" text-anchor="middle" fill="var(--muted)">${v}</text>`;
+      svg += `<line x1="${x - 2}" x2="${x + bw - 6}" y1="${y(r.d.limit)}" y2="${y(r.d.limit)}" stroke="var(--gold)" stroke-width="1.5" stroke-dasharray="3 2"/>`;
+    }
+    svg += `<text x="${x + (bw - 8) / 2}" y="${H - 6}" font-size="9" text-anchor="middle" fill="var(--muted)">${lab}</text>`;
+  });
+  svg += `</svg><div style="font-size:12px;color:var(--muted);margin-top:6px">Dashed line = your limit that day</div>`;
+  $('chart').innerHTML = svg;
+}
+
+function renderBadges(s) {
+  $('badges').innerHTML = BADGES.map(b => {
+    const got = b.test(s);
+    if (got && !state.badgesSeen.includes(b.id)) {
+      state.badgesSeen.push(b.id);
+      save();
+      setTimeout(() => toast(`🏅 Badge unlocked: ${b.e} ${b.name}!`, 'gold'), 400);
+    }
+    return `<div class="badge ${got ? 'got' : ''}"><span class="e">${b.e}</span>${b.name}</div>`;
+  }).join('');
+}
+
+function renderDrop(s) {
+  const L = state.settings.limit;
+  const show = s.streak >= 7 && L > 0 && state.dropDismissed !== todayKey();
+  $('dropBanner').hidden = !show;
+  if (show) $('dropText').innerHTML = `🎯 <b>${s.streak} days</b> at or under ${L}. You're stronger than this limit. Ready to drop to <b>${L - 1}</b>?`;
+}
+
+let tipIdx = Math.floor(Math.random() * TIPS.length);
+function renderTip() {
+  $('tipCard').innerHTML = '💡 ' + TIPS[tipIdx % TIPS.length].replace('{price}', money(perCig()));
+}
+
+// ---------- Actions ----------
+function toast(msg, kind = '') {
+  const t = document.createElement('div');
+  t.className = 'toast ' + kind;
+  t.innerHTML = msg;
+  $('toasts').appendChild(t);
+  setTimeout(() => t.remove(), 3300);
+}
+const PRAISE = ['Nailed it!', 'That\'s the way!', 'Craving: 0, You: 1', 'Stronger every time.', 'Legend.', 'Your lungs say thanks.'];
+function beatCraving() {
+  today().resisted++;
+  save();
+  toast(`💪 +5 XP — ${PRAISE[Math.floor(Math.random() * PRAISE.length)]}`, 'good');
+  render();
+}
+function logCigarette() {
+  const d = today();
+  const before = potFor(d);
+  d.smoked.push(Date.now());
+  save();
+  const n = d.smoked.length, L = d.limit;
+  const lost = before - potFor(d);
+  render();
+  const c = $('pack').children[n - 1];
+  if (c) { c.classList.add('burning'); setTimeout(() => c.classList.remove('burning'), 1000); }
+  if (n < L) toast(`🔥 −${lost} XP. ${L - n} left today — stretch the next gap.`, 'bad');
+  else if (n === L) toast(`⚠️ That's your last one for today. −${lost} XP. Hold the line and bank the rest!`, 'bad');
+  else toast(`It's been a tough one. Don't give up — every one you skip from here still counts.`, 'bad');
+}
+function openModal(id) { $(id).classList.add('show'); }
+function closeModal(id) { $(id).classList.remove('show'); if (id === 'breatheModal') stopBreathe(); }
+document.querySelectorAll('.modal').forEach(m => {
+  m.addEventListener('click', e => {
+    if (e.target === m || e.target.hasAttribute('data-close')) closeModal(m.id);
+  });
+});
+
+$('beatCraving').onclick = beatCraving;
+$('playGame').onclick = () => startGame();
+$('smokeOne').onclick = () => {
+  const d = today();
+  const n = d.smoked.length, L = d.limit;
+  const r = state.settings.reason.trim();
+  $('reasonBox').hidden = !r;
+  $('reasonBox').textContent = '❤️ ' + r;
+  const gap = d.smoked.length ? ` It's been ${fmtDur(Date.now() - d.smoked[d.smoked.length - 1])} since your last one.` : '';
+  $('smokeCost').innerHTML = n < L
+    ? `This burns <b>10 XP</b> from today's pot and costs ${money(perCig())}.${gap} Can you beat the craving instead?`
+    : `This takes you <b>over your limit</b> and burns today's bonus.${gap} The craving will pass — try one of these first.`;
+  openModal('smokeModal');
+};
+$('smokeGame').onclick = () => { closeModal('smokeModal'); startGame(); };
+$('smokeBreathe').onclick = () => { closeModal('smokeModal'); startBreathe(); };
+$('smokeConfirm').onclick = () => { closeModal('smokeModal'); logCigarette(); };
+$('undo').onclick = () => {
+  const d = today();
+  if (d.smoked.length) { d.smoked.pop(); save(); toast('↩︎ Removed. XP restored.'); render(); }
+};
+$('tipCard').onclick = () => { tipIdx++; renderTip(); };
+
+$('dropYes').onclick = () => {
+  state.settings.limit = Math.max(0, state.settings.limit - 1);
+  today().limit = state.settings.limit;
+  state.dropDismissed = todayKey();
+  save();
+  toast(`🎯 New limit: ${state.settings.limit}. You've got this!`, 'gold');
+  render();
+};
+$('dropNo').onclick = () => { state.dropDismissed = todayKey(); save(); render(); };
+
+// Settings
+$('openSettings').onclick = () => {
+  const s = state.settings;
+  $('sLimit').value = s.limit; $('sBaseline').value = s.baseline; $('sPrice').value = s.packPrice;
+  $('sPack').value = s.packSize; $('sCur').value = s.currency; $('sReason').value = s.reason;
+  openModal('settingsModal');
+};
+$('saveSettings').onclick = () => {
+  const num = (id, def, min) => { const v = parseFloat($(id).value); return isFinite(v) && v >= min ? v : def; };
+  const s = state.settings;
+  s.limit = Math.round(num('sLimit', s.limit, 0));
+  s.baseline = Math.round(num('sBaseline', s.baseline, 0));
+  s.packPrice = num('sPrice', s.packPrice, 0);
+  s.packSize = Math.round(num('sPack', s.packSize, 1));
+  s.currency = $('sCur').value.trim() || '£';
+  s.reason = $('sReason').value;
+  today().limit = s.limit;
+  save();
+  closeModal('settingsModal');
+  renderTip();
+  render();
+  toast('Saved ✔︎');
+};
+$('resetAll').onclick = () => {
+  if (confirm('Reset ALL progress, badges and history? This can\'t be undone.')) {
+    const settings = state.settings;
+    state = JSON.parse(JSON.stringify(DEFAULTS));
+    state.settings = settings;
+    save();
+    closeModal('settingsModal');
+    render();
+  }
+};
+
+// ---------- Breathing ----------
+let breatheTimer = null, breatheEnd = 0, breathePhase = null;
+function startBreathe() {
+  breatheEnd = Date.now() + 5 * 60 * 1000;
+  openModal('breatheModal');
+  const circle = $('circle');
+  let inhale = true;
+  const phase = () => { circle.classList.toggle('in', inhale); circle.textContent = inhale ? 'Breathe in' : 'Breathe out'; inhale = !inhale; };
+  phase();
+  breathePhase = setInterval(phase, 4000);
+  const tick = () => {
+    const left = Math.max(0, breatheEnd - Date.now());
+    $('breatheTimer').textContent = Math.floor(left / 60000) + ':' + pad(Math.floor(left / 1000) % 60);
+    if (!left) { stopBreathe(); $('breatheTimer').textContent = 'Done! 🎉'; }
+  };
+  tick();
+  breatheTimer = setInterval(tick, 250);
+}
+function stopBreathe() { clearInterval(breatheTimer); clearInterval(breathePhase); $('circle').classList.remove('in'); }
+$('breatheDone').onclick = () => { closeModal('breatheModal'); beatCraving(); };
+
+// ---------- Craving Crusher mini-game ----------
+const cv = $('cv'), ctx = cv.getContext('2d');
+const G = { running: false, items: [], parts: [], score: 0, misses: 0, maxMiss: 5, t0: 0, dur: 45000, nextSpawn: 0, raf: 0 };
+function sizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+function startGame() {
+  $('game').classList.add('show');
+  $('gEnd').classList.remove('show');
+  sizeCanvas();
+  Object.assign(G, { running: true, items: [], parts: [], score: 0, misses: 0, t0: performance.now(), nextSpawn: 0 });
+  $('gScore').textContent = 0;
+  $('gMeter').style.width = '0';
+  cancelAnimationFrame(G.raf);
+  G.raf = requestAnimationFrame(loop);
+}
+function spawn(now) {
+  const elapsed = (now - G.t0) / G.dur;
+  G.items.push({
+    x: 30 + Math.random() * (innerWidth - 60), y: -60,
+    vy: 1.6 + elapsed * 3.2 + Math.random() * 1.2,
+    rot: (Math.random() - .5) * .8, vr: (Math.random() - .5) * .03,
+    gold: Math.random() < .08
+  });
+  G.nextSpawn = now + Math.max(260, 900 - elapsed * 650) * (0.7 + Math.random() * .6);
+}
+function drawCig(it) {
+  ctx.save();
+  ctx.translate(it.x, it.y);
+  ctx.rotate(it.rot);
+  ctx.shadowColor = '#ff7a2f'; ctx.shadowBlur = 14;
+  ctx.fillStyle = it.gold ? '#ffd25a' : '#ff5a1f';
+  ctx.fillRect(-6, -42, 12, 6);
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = it.gold ? '#fff4c2' : '#f4efe8';
+  ctx.fillRect(-6, -36, 12, 54);
+  ctx.fillStyle = it.gold ? '#e3a600' : '#e2832f';
+  ctx.fillRect(-6, 18, 12, 22);
+  ctx.restore();
+}
+function burst(x, y, gold) {
+  for (let i = 0; i < 16; i++) {
+    const a = Math.random() * Math.PI * 2, sp = 2 + Math.random() * 5;
+    G.parts.push({ x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, c: gold ? '#ffd25a' : (i % 2 ? '#f4efe8' : '#ff7a2f') });
+  }
+}
+function loop(now) {
+  if (!G.running) return;
+  const elapsed = now - G.t0;
+  if (now >= G.nextSpawn) spawn(now);
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+  // ground glow
+  const grad = ctx.createLinearGradient(0, innerHeight - 80, 0, innerHeight);
+  grad.addColorStop(0, 'rgba(255,77,94,0)'); grad.addColorStop(1, `rgba(255,77,94,${.15 + G.misses / G.maxMiss * .4})`);
+  ctx.fillStyle = grad; ctx.fillRect(0, innerHeight - 80, innerWidth, 80);
+
+  for (const it of G.items) { it.y += it.vy; it.rot += it.vr; drawCig(it); }
+  const fallen = G.items.filter(it => it.y > innerHeight + 40);
+  if (fallen.length) {
+    G.misses += fallen.length;
+    G.items = G.items.filter(it => it.y <= innerHeight + 40);
+    $('gMeter').style.width = Math.min(100, G.misses / G.maxMiss * 100) + '%';
+    if (navigator.vibrate) navigator.vibrate(40);
+  }
+  for (const p of G.parts) {
+    p.x += p.vx; p.y += p.vy; p.vy += .15; p.life -= .03;
+    ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.c; ctx.fillRect(p.x, p.y, 4, 4);
+  }
+  ctx.globalAlpha = 1;
+  G.parts = G.parts.filter(p => p.life > 0);
+  $('gTime').textContent = Math.max(0, Math.ceil((G.dur - elapsed) / 1000)) + 's';
+
+  if (G.misses >= G.maxMiss) return endGame(false);
+  if (elapsed >= G.dur) return endGame(true);
+  G.raf = requestAnimationFrame(loop);
+}
+cv.addEventListener('pointerdown', e => {
+  if (!G.running) return;
+  const r = cv.getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  for (let i = G.items.length - 1; i >= 0; i--) {
+    const it = G.items[i];
+    if (Math.abs(x - it.x) < 34 && y > it.y - 64 && y < it.y + 60) {
+      G.items.splice(i, 1);
+      G.score += it.gold ? 5 : 1;
+      burst(it.x, it.y, it.gold);
+      $('gScore').textContent = G.score;
+      break;
+    }
+  }
+});
+function endGame(survived) {
+  G.running = false;
+  cancelAnimationFrame(G.raf);
+  const d = today();
+  const award = Math.min(G.score, Math.max(0, GAME_XP_CAP - d.game));
+  d.game += award;
+  d.gameBest = Math.max(d.gameBest || 0, G.score);
+  save();
+  $('gEndTitle').textContent = survived ? 'You outlasted it! 🏆' : 'Phew — close one!';
+  $('gEndText').innerHTML = `You snapped <b>${G.score}</b> cigarettes${award ? ` and earned <b>+${award} XP</b>` : ''}.` +
+    (award < G.score ? ` (Game XP is capped at ${GAME_XP_CAP} a day.)` : '') +
+    `<br>That was ${Math.round((performance.now() - G.t0) / 1000)} seconds the craving didn't get. How are you feeling now?`;
+  $('gEnd').classList.add('show');
+}
+function closeGame() { G.running = false; cancelAnimationFrame(G.raf); $('game').classList.remove('show'); render(); }
+$('gQuit').onclick = closeGame;
+$('gClose').onclick = closeGame;
+$('gAgain').onclick = startGame;
+$('gWon').onclick = () => { closeGame(); beatCraving(); };
+addEventListener('resize', () => { if (G.running) sizeCanvas(); });
+
+// ---------- Boot ----------
+renderTip();
+render();
+setInterval(render, 30000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
+</script>
+</body>
+</html>
