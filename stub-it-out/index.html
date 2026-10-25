@@ -23,6 +23,7 @@
     --radius: 18px;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  [hidden] { display: none !important; }
   html, body { margin: 0; background: var(--bg); color: var(--text); }
   body {
     font-family: Fredoka, system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -57,8 +58,8 @@
   .left-msg { font-size: 15px; color: var(--muted); }
   .pack { margin: 14px 0 6px; padding: 14px 10px 10px; border-radius: 14px;
     background: linear-gradient(180deg, #3b2a1b, #2a1e14); border: 2px solid #4d3826;
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; min-height: 140px; }
-  .cig { width: 20px; height: 112px; position: relative; display: flex; flex-direction: column; transition: transform .3s; }
+    display: grid; justify-items: center; row-gap: 10px; column-gap: 4px; }
+  .cig { width: 100%; max-width: 22px; height: 92px; position: relative; display: flex; flex-direction: column; transition: transform .3s; }
   .cig .tip { height: 6px; border-radius: 3px 3px 0 0; background: #e9e1d6; }
   .cig .paper { flex: 1; background: linear-gradient(90deg, #fff, #e8e2d9); }
   .cig .filter { height: 30px; border-radius: 0 0 4px 4px;
@@ -68,6 +69,11 @@
   .cig.smoked .filter { filter: grayscale(.6) brightness(.7); }
   .cig.smoked .filter::before { content: ""; position: absolute; left: 0; right: 0; bottom: 30px; height: 7px;
     background: #555; border-radius: 3px 3px 0 0; }
+  .cig.saved .paper { background: linear-gradient(90deg, #fff7da, #f1d98c); }
+  .cig.saved .tip { background: #f1d98c; }
+  .cig.saved { filter: drop-shadow(0 0 6px rgba(255,210,90,.55)); }
+  .pack-key { display: flex; gap: 14px; justify-content: center; font-size: 13px; color: var(--muted); margin: 2px 0 10px; flex-wrap: wrap; }
+  .pack-key i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
   .cig.over .filter { background: repeating-linear-gradient(45deg, var(--red) 0 3px, #c22f3d 3px 6px); filter: none; }
   .cig.burning .tip { background: radial-gradient(circle at 50% 30%, #fff3b0, var(--ember) 60%, #b4301a); box-shadow: 0 0 12px var(--ember); }
   .cig.burning { animation: burn 1s ease-in forwards; }
@@ -146,6 +152,44 @@
   .toast.bad { border-color: var(--red); }
   .toast.gold { border-color: var(--gold); }
   @keyframes toast { 0% { opacity: 0; transform: translateY(-10px); } 10%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-10px); } }
+  /* Builder */
+  .builder { --paper: #f3efe6; }
+  .b-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .b-head h2 { margin: 0 0 4px; }
+  .b-sub { font-size: 14px; color: var(--muted); line-height: 1.4; }
+  .b-sub b { color: var(--text); font-weight: 600; }
+  .b-count { flex: none; text-align: center; background: linear-gradient(135deg, var(--gold), var(--ember2)); color: #2a1606;
+    border-radius: 14px; padding: 6px 12px; min-width: 70px; box-shadow: 0 6px 18px rgba(255,179,71,.25); }
+  .b-count b { display: block; font-size: 30px; line-height: 1.05; }
+  .b-count span { font-size: 12px; font-weight: 600; }
+  .b-count.empty { background: var(--card2); color: var(--muted); box-shadow: none; }
+  .b-stage { position: relative; border-radius: 14px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+  .b-stage canvas { display: block; width: 100%; touch-action: manipulation; cursor: crosshair; }
+  .b-stage.remove canvas { cursor: not-allowed; }
+  .b-hint { position: absolute; left: 0; right: 0; top: 38%; text-align: center; font-weight: 600; color: rgba(255,255,255,.92);
+    text-shadow: 0 2px 8px rgba(0,0,0,.45); pointer-events: none; padding: 0 16px; font-size: 17px; }
+  .b-tools { margin-top: 12px; }
+  .seg { display: flex; background: var(--card2); border-radius: 14px; padding: 4px; gap: 4px; }
+  .seg button { flex: 1; min-height: 52px; padding: 6px 8px; border-radius: 10px; background: transparent; color: var(--muted);
+    font-size: 13px; font-weight: 500; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+  .seg button.on { background: var(--line); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,.25); }
+  .ico { display: block; border-radius: 3px; box-shadow: 0 1px 0 rgba(0,0,0,.3); }
+  .ico.long { width: 38px; height: 9px; background: linear-gradient(90deg, #d98a3d 0 26%, #e8c25a 26% 30%, var(--paper) 30%); }
+  .ico.half { width: 20px; height: 9px; background: linear-gradient(90deg, #d98a3d 0 40%, #e8c25a 40% 48%, var(--paper) 48%); }
+  .ico.stand { width: 9px; height: 30px; background: linear-gradient(0deg, #d98a3d 0 26%, #e8c25a 26% 30%, var(--paper) 30%); }
+  .swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-top: 12px; }
+  .sw { width: 100%; max-width: 36px; aspect-ratio: 1; justify-self: center; border-radius: 50%; border: 3px solid var(--card); box-shadow: 0 0 0 2px var(--line); padding: 0; }
+  .sw.on { box-shadow: 0 0 0 2px var(--gold); transform: scale(1.08); }
+  .b-row { display: flex; gap: 6px; margin-top: 12px; }
+  .b-row .chip { flex: 1; padding: 8px 4px; }
+  .chip.danger-on { color: var(--red); border-color: var(--red); }
+  .chip { background: var(--card2); border: 1px solid var(--line); color: var(--muted); border-radius: 99px; padding: 7px 12px; font-size: 13px; font-weight: 500; }
+  .chip.on { color: var(--text); border-color: var(--gold); }
+  .b-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+  .b-stats div { background: var(--card2); border-radius: 12px; padding: 8px; text-align: center; font-size: 12px; color: var(--muted); }
+  .b-stats b { display: block; font-size: 18px; color: var(--text); }
+  .shake { animation: shake .35s; }
+  @keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
   .foot { text-align: center; color: var(--muted); font-size: 13px; line-height: 1.5; margin-top: 20px; }
 </style>
 </head>
@@ -179,6 +223,7 @@
       <div class="left-msg" id="leftMsg"></div>
     </div>
     <div class="pack" id="pack"></div>
+    <div class="pack-key" id="packKey"></div>
     <div class="gap-line">
       <span>Since last: <b id="sinceLast">—</b></span>
       <span id="bestGapWrap">Best gap: <b id="bestGap">—</b></span>
@@ -191,6 +236,39 @@
     <button class="btn btn-game" id="playGame">🎮 Craving Crusher</button>
     <button class="btn btn-smoke" id="smokeOne">🚬 I'm having one…</button>
     <button class="btn btn-ghost" id="undo" hidden>↩︎ Undo last cigarette</button>
+  </div>
+
+  <div class="card builder" id="builder">
+    <div class="b-head">
+      <div>
+        <h2>🧱 Cigarette builder</h2>
+        <div class="b-sub" id="bSub"></div>
+      </div>
+      <div class="b-count" id="bCount"><b id="bricks">0</b><span>to build</span></div>
+    </div>
+    <div class="b-stage" id="bStage">
+      <canvas id="bcv" aria-label="Your cigarette build. Tap to drop a cigarette brick."></canvas>
+      <div class="b-hint" id="bHint" hidden></div>
+    </div>
+    <div class="b-tools">
+      <div class="seg" id="shapeSeg">
+        <button data-shape="long"><i class="ico long"></i>Lying</button>
+        <button data-shape="stand"><i class="ico stand"></i>Standing</button>
+        <button data-shape="half"><i class="ico half"></i>Snapped</button>
+      </div>
+    </div>
+    <div class="swatches" id="swatches"></div>
+    <div class="b-row" id="themes"></div>
+    <div class="b-row">
+      <button class="chip" id="bRemove">🧹 Remove</button>
+      <button class="chip" id="bUndo">↩︎ Undo</button>
+      <button class="chip" id="bClear">🧨 Clear all</button>
+    </div>
+    <div class="b-stats">
+      <div><b id="bPlaced">0</b>bricks placed</div>
+      <div><b id="bHigh">0</b>rows high</div>
+      <div><b id="bLength">0 cm</b>end to end</div>
+    </div>
   </div>
 
   <div class="card tip-card" id="tipCard"></div>
@@ -258,7 +336,7 @@
     <h3>Settings</h3>
     <label for="sLimit">Daily limit</label>
     <input id="sLimit" type="number" min="0" max="40" inputmode="numeric">
-    <label for="sBaseline">How many a day did you smoke before?</label>
+    <label for="sBaseline">How many a day did you smoke before? (every one under this is a brick)</label>
     <input id="sBaseline" type="number" min="0" max="80" inputmode="numeric">
     <div class="row2">
       <div><label for="sPrice">Price per pack</label><input id="sPrice" type="number" min="0" step="0.01" inputmode="decimal"></div>
@@ -308,7 +386,8 @@ const DEFAULTS = {
   settings: { limit: 11, baseline: 20, packPrice: 15, packSize: 20, currency: '£', reason: '' },
   days: {},
   badgesSeen: [],
-  dropDismissed: ''
+  dropDismissed: '',
+  build: { pieces: [], shape: 'long', colour: 'classic', theme: 'day', mode: 'build', lastBurn: null }
 };
 
 let state = load();
@@ -316,7 +395,8 @@ let state = load();
 function load() {
   try {
     const s = JSON.parse(localStorage.getItem(KEY));
-    if (s && s.days) return { ...DEFAULTS, ...s, settings: { ...DEFAULTS.settings, ...s.settings } };
+    const base = JSON.parse(JSON.stringify(DEFAULTS));
+    if (s && s.days) return { ...base, ...s, settings: { ...base.settings, ...s.settings }, build: { ...base.build, ...s.build } };
   } catch (e) {}
   return JSON.parse(JSON.stringify(DEFAULTS));
 }
@@ -335,7 +415,7 @@ function shiftKey(k, delta) {
 function today() {
   const k = todayKey();
   if (!state.days[k]) {
-    state.days[k] = { smoked: [], resisted: 0, game: 0, limit: state.settings.limit };
+    state.days[k] = { smoked: [], resisted: 0, game: 0, limit: state.settings.limit, baseline: state.settings.baseline };
     save();
   }
   return state.days[k];
@@ -364,7 +444,7 @@ function stats() {
     const n = d.smoked.length;
     xp += d.resisted * 5 + d.game;
     resisted += d.resisted;
-    saved += Math.max(0, state.settings.baseline - n);
+    saved += Math.max(0, baselineOf(d) - n);
     gameBest = Math.max(gameBest, d.gameBest || 0);
     if (k < tk) {
       xp += potFor(d);
@@ -375,7 +455,7 @@ function stats() {
   }
   let streak = 0;
   for (let k = shiftKey(tk, -1); state.days[k] && state.days[k].smoked.length <= state.days[k].limit; k = shiftKey(k, -1)) streak++;
-  return { xp, saved, resisted, smokeFree, underDays, halfDays, gameBest, streak, days: keys.length };
+  return { xp, saved, resisted, smokeFree, underDays, halfDays, gameBest, streak, bricks: state.build.pieces.length, days: keys.length };
 }
 function bestGap() {
   let best = 0;
@@ -403,7 +483,10 @@ const BADGES = [
   { id: 'free', e: '🕊️', name: 'Smoke-free day', test: s => s.smokeFree >= 1 },
   { id: 'cash50', e: '💰', name: 'Saved 50', test: s => s.saved * perCig() >= 50 },
   { id: 'cash200', e: '🤑', name: 'Saved 200', test: s => s.saved * perCig() >= 200 },
-  { id: 'arcade', e: '🎮', name: 'Score 30+', test: s => s.gameBest >= 30 }
+  { id: 'arcade', e: '🎮', name: 'Score 30+', test: s => s.gameBest >= 30 },
+  { id: 'brick1', e: '🧱', name: 'First brick', test: s => s.bricks >= 1 },
+  { id: 'brick20', e: '🏗️', name: 'A pack built', test: s => s.bricks >= 20 },
+  { id: 'brick60', e: '🏰', name: '60 bricks', test: s => s.bricks >= 60 }
 ];
 
 const TIPS = [
@@ -418,6 +501,332 @@ const TIPS = [
   'Your circulation and lung function start improving within weeks of smoking less.',
   'Every cigarette you don\'t smoke is a win — it all counts, even on a tough day.'
 ];
+
+// ---------- Cigarette builder ----------
+// Every cigarette under your old pack-a-day is a brick. Today's count is live, so smoking one
+// after they're all built knocks your newest brick off the top (and it goes up in smoke).
+const COLS = 12, ROWS = 16, CM_PER_CIG = 8.4;
+const SHAPES = { long: { w: 4, h: 1 }, stand: { w: 1, h: 4 }, half: { w: 2, h: 1 } };
+const COLOURS = {
+  classic: '#f3efe6', red: '#e3342f', yellow: '#f7c325', blue: '#2a72e0',
+  green: '#23a35a', pink: '#f06bb0', black: '#2d2d33', gold: '#d9a73a'
+};
+const THEMES = { day: '☀️ Day', sunset: '🌇 Sunset', night: '🌙 Night', space: '🪐 Space' };
+const baselineOf = d => d.baseline ?? state.settings.baseline;
+const bricksEarned = () => Object.values(state.days).reduce((a, d) => a + Math.max(0, baselineOf(d) - d.smoked.length), 0);
+const bricks = () => bricksEarned() - state.build.pieces.length;
+const newestPiece = () => state.build.pieces.reduce((a, p) => (!a || p.ts > a.ts ? p : a), null);
+
+function occupancy() {
+  const g = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+  for (const p of state.build.pieces)
+    for (let dy = 0; dy < p.h; dy++) for (let dx = 0; dx < p.w; dx++) g[p.y + dy][p.x + dx] = p;
+  return g;
+}
+function fits(g, x, y, w, h) {
+  if (x < 0 || x + w > COLS || y < 0 || y + h > ROWS) return false;
+  for (let dy = 0; dy < h; dy++) for (let dx = 0; dx < w; dx++) if (g[y + dy][x + dx]) return false;
+  return true;
+}
+// Drop from the top like a falling brick; returns the resting row or -1 if the column is full.
+function dropY(g, x, w, h) {
+  let y = ROWS - h;
+  if (!fits(g, x, y, w, h)) return -1;
+  while (y > 0 && fits(g, x, y - 1, w, h)) y--;
+  return y;
+}
+function isClear(p, g) {
+  const top = p.y + p.h;
+  if (top >= ROWS) return true;
+  for (let dx = 0; dx < p.w; dx++) if (g[top][p.x + dx]) return false;
+  return true;
+}
+
+// Knock the newest bricks off until the build is paid for. Remembers them so an undo can put them back.
+function settleBuild(cigTs) {
+  const lost = [];
+  while (bricks() < 0 && state.build.pieces.length) {
+    const p = newestPiece();
+    state.build.pieces.splice(state.build.pieces.indexOf(p), 1);
+    lost.push(p);
+    burnFx(p);
+  }
+  if (lost.length) {
+    state.build.lastBurn = { cigTs: cigTs || null, lost };
+    save();
+  }
+  return lost;
+}
+
+const bcv = $('bcv'), bctx = bcv.getContext('2d');
+let cell = 28, groundY = 0, hover = null, fx = [], drawQueued = false;
+
+function sizeBuilder() {
+  const w = bcv.parentElement.clientWidth || 340;
+  cell = Math.floor(w / COLS);
+  groundY = ROWS * cell + cell * 0.25;
+  const h = groundY + cell * 0.75;
+  const dpr = window.devicePixelRatio || 1;
+  bcv.width = Math.round(w * dpr); bcv.height = Math.round(h * dpr);
+  bcv.style.height = h + 'px';
+  bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  bcv._w = w; bcv._h = h;
+}
+function shade(hex, amt) {
+  const n = parseInt(hex.slice(1), 16);
+  const f = c => Math.max(0, Math.min(255, Math.round(c + (amt > 0 ? (255 - c) * amt : c * amt))));
+  return '#' + [f(n >> 16), f((n >> 8) & 255), f(n & 255)].map(v => v.toString(16).padStart(2, '0')).join('');
+}
+function rr(ctx, x, y, w, h, r) {
+  ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+function rng(seed) { let t = seed >>> 0; return () => { t = (t * 1664525 + 1013904223) >>> 0; return t / 4294967296; }; }
+
+function drawSky(ctx, W, H) {
+  const theme = state.build.theme;
+  const sky = {
+    day: ['#5fb2f2', '#bfe6ff'], sunset: ['#3d2a6b', '#f0745a', '#ffc988'],
+    night: ['#081428', '#1d3766'], space: ['#04020c', '#1b0f38']
+  }[theme] || ['#5fb2f2', '#bfe6ff'];
+  const g = ctx.createLinearGradient(0, 0, 0, groundY);
+  sky.forEach((c, i) => g.addColorStop(i / (sky.length - 1), c));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  const r = rng(7);
+  if (theme === 'night' || theme === 'space') {
+    for (let i = 0; i < (theme === 'space' ? 90 : 50); i++) {
+      ctx.globalAlpha = .3 + r() * .7; ctx.fillStyle = '#fff';
+      ctx.fillRect(r() * W, r() * groundY * .85, r() < .15 ? 2 : 1, r() < .15 ? 2 : 1);
+    }
+    ctx.globalAlpha = 1;
+  }
+  if (theme === 'day') {
+    const sx = W * .82, sy = cell * 2.2;
+    const sg = ctx.createRadialGradient(sx, sy, 0, sx, sy, cell * 3);
+    sg.addColorStop(0, 'rgba(255,240,170,.9)'); sg.addColorStop(1, 'rgba(255,240,170,0)');
+    ctx.fillStyle = sg; ctx.fillRect(sx - cell * 3, sy - cell * 3, cell * 6, cell * 6);
+    ctx.fillStyle = '#ffe680'; ctx.beginPath(); ctx.arc(sx, sy, cell * .9, 0, 7); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.85)';
+    for (const [cx, cy, k] of [[.2, 2.6, 1], [.5, 4.4, .8], [.12, 6.5, .6]]) {
+      const x = W * cx, y = cell * cy, s = cell * k;
+      ctx.beginPath(); ctx.arc(x, y, s, 0, 7); ctx.arc(x + s, y - s * .4, s * 1.1, 0, 7); ctx.arc(x + s * 2.1, y, s * .9, 0, 7); ctx.fill();
+    }
+  } else if (theme === 'sunset') {
+    ctx.fillStyle = 'rgba(255,214,120,.95)'; ctx.beginPath(); ctx.arc(W * .3, groundY - cell * 1.2, cell * 2.2, 0, 7); ctx.fill();
+    ctx.fillStyle = 'rgba(60,30,80,.35)';
+    for (let i = 0; i < COLS; i++) { const h = cell * (1 + r() * 3); ctx.fillRect(i * cell, groundY - h, cell * .9, h); }
+  } else if (theme === 'night') {
+    ctx.fillStyle = '#f5f1d8'; ctx.beginPath(); ctx.arc(W * .8, cell * 2.2, cell * .95, 0, 7); ctx.fill();
+    ctx.fillStyle = sky[0]; ctx.beginPath(); ctx.arc(W * .8 + cell * .4, cell * 1.95, cell * .8, 0, 7); ctx.fill();
+  } else if (theme === 'space') {
+    const px = W * .78, py = cell * 3;
+    const pg = ctx.createLinearGradient(px - cell, py - cell, px + cell, py + cell);
+    pg.addColorStop(0, '#ffb86b'); pg.addColorStop(1, '#a3416b');
+    ctx.fillStyle = pg; ctx.beginPath(); ctx.arc(px, py, cell * 1.3, 0, 7); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,220,180,.7)'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.ellipse(px, py, cell * 2.1, cell * .45, -.35, 0, 7); ctx.stroke();
+  }
+  // faint column guides
+  ctx.fillStyle = 'rgba(255,255,255,.05)';
+  for (let i = 1; i < COLS; i++) ctx.fillRect(i * cell, 0, 1, groundY);
+}
+function drawStud(ctx, cx, top, colour) {
+  const w = cell * .52, h = cell * .2;
+  ctx.fillStyle = shade(colour, -.25);
+  rr(ctx, cx - w / 2, top - h, w, h + 2, 3); ctx.fill();
+  ctx.fillStyle = shade(colour, .25);
+  ctx.beginPath(); ctx.ellipse(cx, top - h, w / 2, h * .45, 0, 0, 7); ctx.fill();
+}
+function drawBaseplate(ctx, W, H) {
+  const base = state.build.theme === 'space' ? '#6b6f80' : '#3aa655';
+  ctx.fillStyle = shade(base, -.2); ctx.fillRect(0, groundY, W, H - groundY);
+  ctx.fillStyle = base; ctx.fillRect(0, groundY, W, cell * .3);
+  for (let i = 0; i < COLS; i++) drawStud(ctx, i * cell + cell / 2, groundY, base);
+}
+// A cigarette brick: paper body, cork filter, gold band, tobacco end and Lego studs on top.
+function drawPiece(ctx, p, opts = {}) {
+  const colour = opts.tint || COLOURS[p.c] || COLOURS.classic;
+  const x = p.x * cell, w = p.w * cell, h = p.h * cell;
+  const y = groundY - (p.y + p.h) * cell - (opts.lift || 0);
+  const lying = p.w >= p.h;
+  ctx.save();
+  ctx.globalAlpha = opts.alpha ?? 1;
+  const tops = lying ? [...Array(p.w).keys()].map(i => x + i * cell + cell / 2) : [x + cell / 2];
+  for (const cx of tops) drawStud(ctx, cx, y + 1, colour);
+  const bx = x + 1, by = y + 1, bw = w - 2, bh = h - 2, rad = Math.min(bw, bh) * .32;
+  const g = lying ? ctx.createLinearGradient(0, by, 0, by + bh) : ctx.createLinearGradient(bx, 0, bx + bw, 0);
+  g.addColorStop(0, shade(colour, .35)); g.addColorStop(.45, colour); g.addColorStop(1, shade(colour, -.3));
+  rr(ctx, bx, by, bw, bh, rad); ctx.fillStyle = g; ctx.fill();
+  ctx.save(); ctx.clip();
+  const fl = (p.w === 2 || p.h === 2 ? .42 : .27) * (lying ? bw : bh);
+  const fx0 = lying ? bx : bx, fy0 = lying ? by : by + bh - fl;
+  const fw = lying ? fl : bw, fh = lying ? bh : fl;
+  const fg = lying ? ctx.createLinearGradient(0, by, 0, by + bh) : ctx.createLinearGradient(bx, 0, bx + bw, 0);
+  fg.addColorStop(0, '#f2b066'); fg.addColorStop(.5, '#d98a3d'); fg.addColorStop(1, '#a9601f');
+  ctx.fillStyle = fg; ctx.fillRect(fx0, fy0, fw, fh);
+  const r = rng(p.ts % 100000);
+  ctx.fillStyle = 'rgba(120,60,10,.35)';
+  for (let i = 0; i < 14; i++) ctx.fillRect(fx0 + r() * fw, fy0 + r() * fh, 1.5, 1.5);
+  ctx.fillStyle = '#e8c25a';
+  if (lying) ctx.fillRect(bx + fl, by, 2.5, bh); else ctx.fillRect(bx, fy0 - 2.5, bw, 2.5);
+  ctx.fillStyle = '#7a4a22';
+  if (lying) ctx.fillRect(bx + bw - 3, by, 3, bh); else ctx.fillRect(bx, by, bw, 3);
+  ctx.fillStyle = 'rgba(255,255,255,.35)';
+  if (lying) ctx.fillRect(bx + fl + 4, by + bh * .18, bw - fl - 10, Math.max(1.5, bh * .1));
+  else ctx.fillRect(bx + bw * .18, by + 5, Math.max(1.5, bw * .1), bh - fl - 10);
+  ctx.restore();
+  if (opts.outline) { rr(ctx, bx, by, bw, bh, rad); ctx.lineWidth = 2.5; ctx.strokeStyle = opts.outline; ctx.stroke(); }
+  ctx.restore();
+}
+function ghostPiece() {
+  if (!hover || state.build.mode !== 'build') return null;
+  const sh = SHAPES[state.build.shape];
+  const x = Math.max(0, Math.min(COLS - sh.w, hover.col - Math.floor((sh.w - 1) / 2)));
+  const y = dropY(occupancy(), x, sh.w, sh.h);
+  return y < 0 ? null : { x, y, w: sh.w, h: sh.h, c: state.build.colour, ts: 1 };
+}
+function pieceAt(col, row) {
+  return state.build.pieces.find(p => col >= p.x && col < p.x + p.w && row >= p.y && row < p.y + p.h + .35) || null;
+}
+function drawBuild(now = performance.now()) {
+  const W = bcv._w, H = bcv._h;
+  if (!W) return;
+  const ctx = bctx;
+  ctx.clearRect(0, 0, W, H);
+  drawSky(ctx, W, H);
+  drawBaseplate(ctx, W, H);
+  let animating = false;
+  const g = occupancy();
+  const target = state.build.mode === 'remove' && hover ? pieceAt(hover.col, hover.row) : null;
+  const sorted = [...state.build.pieces].sort((a, b) => a.y - b.y || a.x - b.x);
+  for (const p of sorted) {
+    let lift = 0;
+    if (p.anim) {
+      const t = Math.min(1, (now - p.anim) / 320);
+      const ease = 1 + 2.2 * Math.pow(t - 1, 3) + 1.2 * Math.pow(t - 1, 2);
+      lift = (1 - ease) * (ROWS - p.y) * cell * .7;
+      if (t < 1) animating = true; else delete p.anim;
+    }
+    drawPiece(ctx, p, { lift, outline: p === target ? (isClear(p, g) ? '#ff4d5e' : '#ffd25a') : null });
+  }
+  const gp = ghostPiece();
+  if (gp) drawPiece(ctx, gp, bricks() > 0 ? { alpha: .45 } : { alpha: .4, tint: '#ff4d5e' });
+  fx = fx.filter(f => now - f.t0 < 1200);
+  for (const f of fx) {
+    const t = (now - f.t0) / 1200;
+    if (t < .35) drawPiece(ctx, f.p, { alpha: 1 - t / .35, tint: '#ff7a2f' });
+    for (const s of f.parts) {
+      const k = t * 1.2;
+      ctx.globalAlpha = Math.max(0, 1 - t);
+      ctx.fillStyle = s.ember ? '#ffb347' : 'rgba(170,170,170,.8)';
+      ctx.beginPath(); ctx.arc(s.x + s.vx * k * 40, s.y - k * 80 * s.vy, s.r * (s.ember ? 1 : 1 + t * 2), 0, 7); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    animating = true;
+  }
+  if (animating) requestDraw();
+}
+function requestDraw() {
+  if (drawQueued) return;
+  drawQueued = true;
+  requestAnimationFrame(t => { drawQueued = false; drawBuild(t); });
+}
+function burnFx(p) {
+  const parts = [];
+  const cx = (p.x + p.w / 2) * cell, cy = groundY - (p.y + p.h / 2) * cell;
+  for (let i = 0; i < 22; i++) parts.push({ x: cx + (Math.random() - .5) * p.w * cell, y: cy, vx: Math.random() - .5, vy: .5 + Math.random(), r: 2 + Math.random() * 4, ember: i % 3 === 0 });
+  fx.push({ p: { ...p }, parts, t0: performance.now() });
+  requestDraw();
+}
+function cellAt(e) {
+  const r = bcv.getBoundingClientRect();
+  return { col: Math.floor((e.clientX - r.left) / cell), row: Math.floor((groundY - (e.clientY - r.top)) / cell) };
+}
+function nudge() { const el = $('bCount'); el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+function placeOrRemove(c) {
+  const b = state.build;
+  if (b.mode === 'remove') {
+    const p = pieceAt(c.col, c.row);
+    if (!p) return;
+    if (!isClear(p, occupancy())) return toast('Take the bricks on top off first 🧱');
+    b.pieces.splice(b.pieces.indexOf(p), 1);
+    b.lastBurn = null;
+    save(); render();
+    return;
+  }
+  if (bricks() <= 0) {
+    nudge();
+    return toast(`No bricks left — every cigarette you don't smoke today (under ${baselineOf(today())}) adds one.`);
+  }
+  const p = ghostPiece();
+  if (!p) return toast('No room up there — try another spot.');
+  p.ts = Date.now(); p.anim = performance.now();
+  b.pieces.push(p);
+  b.lastBurn = null;
+  save(); render();
+  if (navigator.vibrate) navigator.vibrate(12);
+}
+bcv.addEventListener('pointermove', e => { hover = cellAt(e); requestDraw(); });
+bcv.addEventListener('pointerleave', () => { hover = null; requestDraw(); });
+bcv.addEventListener('pointerup', e => {
+  const c = cellAt(e);
+  hover = c;
+  placeOrRemove(c);
+  if (e.pointerType !== 'mouse') hover = null;
+  requestDraw();
+});
+$('shapeSeg').onclick = e => {
+  const btn = e.target.closest('button'); if (!btn) return;
+  state.build.shape = btn.dataset.shape; state.build.mode = 'build'; save(); renderBuild();
+};
+$('bRemove').onclick = () => { state.build.mode = state.build.mode === 'remove' ? 'build' : 'remove'; save(); renderBuild(); };
+$('swatches').innerHTML = Object.entries(COLOURS).map(([k, c]) => `<button class="sw" data-c="${k}" style="background:${c}" aria-label="${k}"></button>`).join('');
+$('swatches').onclick = e => {
+  const btn = e.target.closest('button'); if (!btn) return;
+  state.build.colour = btn.dataset.c; state.build.mode = 'build'; save(); renderBuild();
+};
+$('themes').innerHTML = Object.entries(THEMES).map(([k, v]) => `<button class="chip" data-t="${k}">${v}</button>`).join('');
+$('themes').onclick = e => {
+  const btn = e.target.closest('button'); if (!btn) return;
+  state.build.theme = btn.dataset.t; save(); renderBuild();
+};
+$('bUndo').onclick = () => {
+  const p = newestPiece(); if (!p) return;
+  state.build.pieces.splice(state.build.pieces.indexOf(p), 1);
+  state.build.lastBurn = null;
+  save(); render();
+};
+$('bClear').onclick = () => {
+  if (!state.build.pieces.length || !confirm('Take your whole build apart? You keep all the bricks.')) return;
+  state.build.pieces = []; state.build.lastBurn = null;
+  save(); render();
+};
+addEventListener('resize', () => { sizeBuilder(); requestDraw(); });
+
+function renderBuild() {
+  const b = state.build, d = today();
+  const n = d.smoked.length, base = baselineOf(d), br = bricks();
+  const todaySaved = Math.max(0, base - n);
+  $('bricks').textContent = br;
+  $('bCount').classList.toggle('empty', br <= 0);
+  $('bSub').innerHTML = `Pack a day (<b>${base}</b>) − <b>${n}</b> smoked today = <b>${todaySaved}</b> saved today.` +
+    (b.pieces.length && br <= 0 ? ` All built — smoke another and your top brick goes up in smoke 🔥` : '');
+  $('builder').style.setProperty('--paper', COLOURS[b.colour]);
+  $('bStage').classList.toggle('remove', b.mode === 'remove');
+  document.querySelectorAll('#shapeSeg button').forEach(x => x.classList.toggle('on', b.mode === 'build' && x.dataset.shape === b.shape));
+  $('bRemove').classList.toggle('danger-on', b.mode === 'remove');
+  $('bRemove').textContent = b.mode === 'remove' ? '🧹 Removing…' : '🧹 Remove';
+  document.querySelectorAll('#swatches .sw').forEach(x => x.classList.toggle('on', x.dataset.c === b.colour));
+  document.querySelectorAll('#themes .chip').forEach(x => x.classList.toggle('on', x.dataset.t === b.theme));
+  $('bHint').hidden = b.pieces.length > 0;
+  $('bHint').textContent = br > 0 ? `Tap to drop a cigarette brick 👇` : `Save a cigarette to get your first brick`;
+  $('bPlaced').textContent = b.pieces.length;
+  $('bHigh').textContent = b.pieces.reduce((m, p) => Math.max(m, p.y + p.h), 0);
+  const cm = b.pieces.length * CM_PER_CIG;
+  $('bLength').textContent = cm >= 100 ? (cm / 100).toFixed(1) + ' m' : Math.round(cm) + ' cm';
+  if (bcv._w !== (bcv.parentElement.clientWidth || 340)) sizeBuilder();
+  requestDraw();
+}
 
 // ---------- Render ----------
 function render() {
@@ -438,7 +847,9 @@ function render() {
   $('leftMsg').style.color = left > 2 ? 'var(--mint)' : left >= 0 ? 'var(--gold)' : 'var(--red)';
 
   const pack = $('pack');
-  const slots = Math.max(L, n);
+  const base = baselineOf(d);
+  const slots = Math.max(L, n, base);
+  pack.style.gridTemplateColumns = `repeat(${Math.min(10, slots)}, 1fr)`;
   if (pack.children.length !== slots) {
     pack.innerHTML = '';
     for (let i = 0; i < slots; i++) {
@@ -451,7 +862,11 @@ function render() {
   [...pack.children].forEach((c, i) => {
     c.classList.toggle('smoked', i < n);
     c.classList.toggle('over', i >= L && i < n);
+    c.classList.toggle('saved', i >= L && i >= n && i < base);
   });
+  $('packKey').innerHTML = base > L
+    ? `<span><i style="background:#f3efe6"></i>Today's ${L}</span><span><i style="background:#f1d98c;box-shadow:0 0 6px #ffd25a"></i>${base - L} you're not smoking 🧱</span>`
+    : '';
 
   const last = d.smoked[d.smoked.length - 1];
   const bg = bestGap();
@@ -480,6 +895,9 @@ function render() {
   renderChart();
   renderBadges(s);
   renderDrop(s);
+  const lost = settleBuild();
+  if (lost.length) toast(`🔥 ${lost.length} brick${lost.length > 1 ? 's' : ''} went up in smoke — your build was short on saved cigarettes.`, 'bad');
+  renderBuild();
 }
 
 function renderChart() {
@@ -554,11 +972,17 @@ function beatCraving() {
 function logCigarette() {
   const d = today();
   const before = potFor(d);
-  d.smoked.push(Date.now());
+  const ts = Date.now();
+  d.smoked.push(ts);
+  const lostBricks = settleBuild(ts);
   save();
   const n = d.smoked.length, L = d.limit;
   const lost = before - potFor(d);
   render();
+  if (lostBricks.length) {
+    setTimeout(() => toast(`🔥 That one knocked ${lostBricks.length > 1 ? lostBricks.length + ' bricks' : 'a brick'} off your build!`, 'bad'), 600);
+    $('builder').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
   const c = $('pack').children[n - 1];
   if (c) { c.classList.add('burning'); setTimeout(() => c.classList.remove('burning'), 1000); }
   if (n < L) toast(`🔥 −${lost} XP. ${L - n} left today — stretch the next gap.`, 'bad');
@@ -585,6 +1009,11 @@ $('smokeOne').onclick = () => {
   $('smokeCost').innerHTML = n < L
     ? `This burns <b>10 XP</b> from today's pot and costs ${money(perCig())}.${gap} Can you beat the craving instead?`
     : `This takes you <b>over your limit</b> and burns today's bonus.${gap} The craving will pass — try one of these first.`;
+  if (n < baselineOf(d)) {
+    $('smokeCost').innerHTML += bricks() <= 0 && state.build.pieces.length
+      ? `<br><br>🔥 <b>Every brick is already built, so this one knocks your newest brick off and burns it.</b>`
+      : `<br><br>🧱 It also costs you a building brick (${bricks()} → ${bricks() - 1}).`;
+  }
   openModal('smokeModal');
 };
 $('smokeGame').onclick = () => { closeModal('smokeModal'); startGame(); };
@@ -592,7 +1021,18 @@ $('smokeBreathe').onclick = () => { closeModal('smokeModal'); startBreathe(); };
 $('smokeConfirm').onclick = () => { closeModal('smokeModal'); logCigarette(); };
 $('undo').onclick = () => {
   const d = today();
-  if (d.smoked.length) { d.smoked.pop(); save(); toast('↩︎ Removed. XP restored.'); render(); }
+  if (!d.smoked.length) return;
+  const ts = d.smoked.pop();
+  const lb = state.build.lastBurn;
+  let rebuilt = '';
+  if (lb && lb.cigTs === ts) {
+    for (const p of lb.lost) if (fits(occupancy(), p.x, p.y, p.w, p.h)) state.build.pieces.push(p);
+    state.build.lastBurn = null;
+    rebuilt = ' Your bricks are back.';
+  }
+  save();
+  toast('↩︎ Removed. XP restored.' + rebuilt);
+  render();
 };
 $('tipCard').onclick = () => { tipIdx++; renderTip(); };
 
@@ -623,6 +1063,7 @@ $('saveSettings').onclick = () => {
   s.currency = $('sCur').value.trim() || '£';
   s.reason = $('sReason').value;
   today().limit = s.limit;
+  today().baseline = s.baseline;
   save();
   closeModal('settingsModal');
   renderTip();
